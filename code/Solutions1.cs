@@ -174,8 +174,19 @@ namespace code
 
 		// 6. Starting from a list of pupil names, display: a). alphabetically all the names that contain at least one letter 'a',
 		// b). all names that have at least 5 letters, c). the shortest name, d). the longest name, e). the number of times the name Alina appears
-		static void printPupils(string [] names){
-			return;
+		static void PrintPupils(string[] names)
+		{
+			string[] ascendingNamesWithA = [.. names.Where(name => name.ToLower().Contains('a')).OrderBy(name => name)];
+			string[] namesWith5Letters = [.. names.Where(name => name.Length >= 5)];
+			string shortestName = names.OrderBy(name => name.Length).First();
+			string longestName = names.OrderByDescending(name => name.Length).First();
+			int alinaCount = names.Count(name => name.ToLower() == "alina");
+
+			Console.WriteLine("a) " + string.Join(", ", ascendingNamesWithA));
+			Console.WriteLine("b) " + string.Join(", ", namesWith5Letters));
+			Console.WriteLine("c) " + shortestName);
+			Console.WriteLine("d) " + longestName);
+			Console.WriteLine("e) " + alinaCount);
 		}
 
 		static void openMenu()
@@ -234,12 +245,12 @@ namespace code
 						}
 					case 6:
 						{
-							
+							PrintPupils(["Alina", "Daniela", "Andrei", "Marius", "Lavinia", "David", "George", "Laurentiu", "Larisa", "Edi", "Mihai", "Sergiu", "Georgiana", "Alina"]);
 							break;
 						}
 					case 7:
 						{
-							
+
 							break;
 						}
 
