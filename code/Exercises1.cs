@@ -172,11 +172,71 @@ namespace code
 			}
 		}
 
+		static void openMenu()
+		{
+			int choice = 0;
+			do
+			{
+				Console.WriteLine("-------------------------------------------------------------------------");
+				Console.WriteLine("1 --> Calculate the sum of two numbers given as parameters.");
+				Console.WriteLine("2 --> Find out if a sequence of characters given as input data represents a holoalphabetic sentence (a panagram = a text that uses");
+				Console.WriteLine("   all the letters of the alphabet, in this case the english alphabet.)");
+				Console.WriteLine("3 --> Write a method that swaps the value of two variables but doesnt use a third variable");
+				Console.WriteLine("4 --> Write a method that displays the number of appearances of each character in a non-null string.");
+				Console.WriteLine("5 --> Starting from the idea of loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between");
+				Console.WriteLine("   1 and 49), and the program responds whether it is a winner or not. The game is won if the inserted numbers are");
+				Console.WriteLine("   the same as the generated ones. Keep in mind that the order doesnt have to be the same.");
+				Console.WriteLine("anything else --> Exit");
+				Console.WriteLine("-------------------------------------------------------------------------");
+				choice = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
+
+				switch (choice)
+				{
+					case 1:
+						{
+							Console.WriteLine("Sum of 1, 2, 3 and 4 is: " + calculateSum([1, 2, 3, 4]));
+							break;
+						}
+					case 2:
+						{
+							string text = "defghijklmnOpPqrstuvwxyzABCCCC";
+							Console.WriteLine(isTextHoloalphabetic(text) ? text + " is holoalphabetic." : text + "is not holoalphabetic.");
+							break;
+						}
+					case 3:
+						{
+							int a = 5, b = 10;
+							Console.WriteLine("Before swap: a: " + a + " b: " + b);
+
+							swap(ref a, ref b);
+
+							Console.WriteLine("After swap: a: " + a + " b: " + b);
+							break;
+						}
+					case 4:
+						{
+							string text = " aaanna issss attt ssschhoooool.    ";
+							Console.WriteLine("Input: " + text);
+
+							Console.Write("Output: ");
+							printCharacterCount(text);
+							break;
+						}
+					case 5:
+						{
+							playLotoRound();
+							break;
+						}
+
+					default:
+						break;
+				}
+			} while (choice >= 1 && choice <= 5);
+		}
+
 		static void Main(string[] args)
 		{
-			playLotoRound();
+			openMenu();
 		}
 	}
 }
-
-// TODO: add menu for these
