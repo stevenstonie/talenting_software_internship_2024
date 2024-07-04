@@ -1,7 +1,7 @@
 ﻿
 using System.Text;
 
-namespace ex1
+namespace code
 {
 	static class Program
 	{
@@ -24,8 +24,8 @@ namespace ex1
 			return a;
 		}
 
-		// 1. c). Apply the concept of overloading for this method
-		// 1. d). Add the posibility to calculate the sum of 3, 4, 5, etc. numbers. (variable number of parameters)s
+		// 1. c). Apply the concept of overloading for this method (calculateSum)
+		// 1. d). Add the posibility to calculate the sum of 3, 4, 5, etc. numbers. (variable number of parameters)
 		static int calculateSum(int[] numbers)
 		{
 			int sum = 0;
@@ -40,7 +40,7 @@ namespace ex1
 
 		// 2. Find out if a sequence of characters given as input data represents a holoalphabetic sentence (a panagram = a text that uses
 		// all the letters of the alphabet, in this case the english alphabet).
-		static Boolean isHoloalphabeticText(string text)
+		static Boolean isTextHoloalphabetic(string text)
 		{
 			bool[] alphabetLetters = new bool[26];
 
@@ -73,7 +73,7 @@ namespace ex1
 			a -= b;
 		}
 
-		// 4. Write a method that displays the number of the appearances of each character in non-null string.
+		// 4. Write a method that displays the number of appearances of each character in a non-null string.
 		// It should be displayed in the following format:
 		// Input: aaanna issss attt ssschhoooool
 		// Output: a3n2a1 i1s4 a1t3 s3c1h2o5l1
@@ -110,7 +110,7 @@ namespace ex1
 			Console.WriteLine(result);
 		}
 
-		// 5. Starting from the loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between 
+		// 5. Starting from the idea of loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between 
 		// 1 and 49), and the program responds whether it is a winner or not. The game is won if the inserted numbers are
 		// the same as the generated ones. Keep in mind that the order doesnt have to be the same.
 		static void playLotoRound()
@@ -151,13 +151,10 @@ namespace ex1
 			generatedNumbers[0] = new Random().Next(1, 50);
 			for (int i = 1; i < generatedNumbers.Length; i++)
 			{
-				int newNumber;
 				do
 				{
-					newNumber = new Random().Next(1, 50);
-				} while (generatedNumbers.Take(i).Contains(newNumber));
-
-				generatedNumbers[i] = newNumber;
+					generatedNumbers[i] = new Random().Next(1, 50);
+				} while (generatedNumbers.Take(i).Contains(generatedNumbers[i]));
 			}
 
 			do
@@ -167,14 +164,11 @@ namespace ex1
 			} while (insertedNumbers[0] < 1 || insertedNumbers[0] > 49);
 			for (int i = 1; i < insertedNumbers.Length; i++)
 			{
-				int insertedNumber;
 				do
 				{
 					Console.Write("Insert an unique number " + (i + 1) + " (from 1 to 49): ");
-					insertedNumber = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
-				} while (insertedNumbers.Take(i).Contains(insertedNumber) || insertedNumber < 1 || insertedNumber > 49);
-
-				insertedNumbers[i] = insertedNumber;
+					insertedNumbers[i] = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
+				} while (insertedNumbers.Take(i).Contains(insertedNumbers[i]) || insertedNumbers[i] < 1 || insertedNumbers[i] > 49);
 			}
 		}
 
