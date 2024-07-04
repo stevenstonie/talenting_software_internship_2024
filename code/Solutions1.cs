@@ -3,16 +3,16 @@ using System.Text;
 
 namespace code
 {
-	static class Program
+	static class Solutions1
 	{
 		// 1. a). Write a method that calculates the sum of two numbers given as parameters.
-		static int calculateSum(int a, int b)
+		static int CalculateSum(int a, int b)
 		{
 			return a + b;
 		}
 
 		// 1. b). Calculate the sum of the numbers without using the operator "+".
-		static int calculateSumWithoutOperator(int a, int b)
+		static int CalculateSumWithoutOperator(int a, int b)
 		{
 			while (b != 0)
 			{
@@ -26,7 +26,7 @@ namespace code
 
 		// 1. c). Apply the concept of overloading for this method (calculateSum)
 		// 1. d). Add the posibility to calculate the sum of 3, 4, 5, etc. numbers. (variable number of parameters)
-		static int calculateSum(int[] numbers)
+		static int CalculateSum(int[] numbers)
 		{
 			int sum = 0;
 
@@ -40,7 +40,7 @@ namespace code
 
 		// 2. Find out if a sequence of characters given as input data represents a holoalphabetic sentence (a panagram = a text that uses
 		// all the letters of the alphabet, in this case the english alphabet).
-		static Boolean isTextHoloalphabetic(string text)
+		static Boolean IsTextHoloalphabetic(string text)
 		{
 			bool[] alphabetLetters = new bool[26];
 
@@ -66,7 +66,7 @@ namespace code
 		}
 
 		// 3. Write a method that swaps the value of two variables but doesnt use a third variable
-		static void swap(ref int a, ref int b)
+		static void Swap(ref int a, ref int b)
 		{
 			a += b;
 			b = a - b;
@@ -77,7 +77,7 @@ namespace code
 		// It should be displayed in the following format:
 		// Input: aaanna issss attt ssschhoooool
 		// Output: a3n2a1 i1s4 a1t3 s3c1h2o5l1
-		static void printCharacterCount(string text)
+		static void PrintCharacterCount(string text)
 		{
 			string result = "";
 			char lastLetter = text[0];
@@ -113,14 +113,14 @@ namespace code
 		// 5. Starting from the idea of loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between 
 		// 1 and 49), and the program responds whether it is a winner or not. The game is won if the inserted numbers are
 		// the same as the generated ones. Keep in mind that the order doesnt have to be the same.
-		static void playLotoRound()
+		static void PlayLotoRound()
 		{
 			int[] generatedNumbers = new int[6], insertedNumbers = new int[6];
 
 
-			generateNumbersAndInsertNumbers(ref generatedNumbers, ref insertedNumbers);
+			GenerateNumbersAndInsertNumbers(ref generatedNumbers, ref insertedNumbers);
 
-			if (checkIfWinner(generatedNumbers, insertedNumbers))
+			if (CheckIfWinner(generatedNumbers, insertedNumbers))
 			{
 				Console.WriteLine("You won!");
 			}
@@ -133,7 +133,7 @@ namespace code
 			Console.WriteLine("Inserted numbers: " + string.Join(", ", insertedNumbers));
 		}
 
-		private static bool checkIfWinner(int[] generatedNumbers, int[] insertedNumbers)
+		private static bool CheckIfWinner(int[] generatedNumbers, int[] insertedNumbers)
 		{
 			foreach (int number in insertedNumbers)
 			{
@@ -146,7 +146,7 @@ namespace code
 			return true;
 		}
 
-		private static void generateNumbersAndInsertNumbers(ref int[] generatedNumbers, ref int[] insertedNumbers)
+		private static void GenerateNumbersAndInsertNumbers(ref int[] generatedNumbers, ref int[] insertedNumbers)
 		{
 			generatedNumbers[0] = new Random().Next(1, 50);
 			for (int i = 1; i < generatedNumbers.Length; i++)
@@ -172,20 +172,25 @@ namespace code
 			}
 		}
 
+		// 6. Starting from a list of pupil names, display: a). alphabetically all the names that contain at least one letter 'a',
+		// b). all names that have at least 5 letters, c). the shortest name, d). the longest name, e). the number of times the name Alina appears
+		static void printPupils(string [] names){
+			return;
+		}
+
 		static void openMenu()
 		{
 			int choice = 0;
 			do
 			{
 				Console.WriteLine("-------------------------------------------------------------------------");
-				Console.WriteLine("1 --> Calculate the sum of two numbers given as parameters.");
-				Console.WriteLine("2 --> Find out if a sequence of characters given as input data represents a holoalphabetic sentence (a panagram = a text that uses");
-				Console.WriteLine("   all the letters of the alphabet, in this case the english alphabet.)");
+				Console.WriteLine("1 --> Calculate the sum of numbers given as parameters.");
+				Console.WriteLine("2 --> Find out if a sequence of characters given as input data represents a holoalphabetic sentence (a panagram = a text that uses\n   all the letters of the alphabet, in this case the english alphabet).");
 				Console.WriteLine("3 --> Write a method that swaps the value of two variables but doesnt use a third variable");
 				Console.WriteLine("4 --> Write a method that displays the number of appearances of each character in a non-null string.");
-				Console.WriteLine("5 --> Starting from the idea of loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between");
-				Console.WriteLine("   1 and 49), and the program responds whether it is a winner or not. The game is won if the inserted numbers are");
-				Console.WriteLine("   the same as the generated ones. Keep in mind that the order doesnt have to be the same.");
+				Console.WriteLine("5 --> Starting from the idea of loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between\n   1 and 49), and the program responds whether it is a winner or not. The game is won if the inserted numbers are\n   the same as the generated ones. Keep in mind that the order doesnt have to be the same.");
+				Console.WriteLine("6 --> Starting from a list of pupil names, display: a). alphabetically all the names that contain at least one letter 'a',\n   b). all names that have at least 5 letters, c). the shortest name, d). the longest name, e). the number of times the name Alina appears");
+				Console.WriteLine("7 --> ");
 				Console.WriteLine("anything else --> Exit");
 				Console.WriteLine("-------------------------------------------------------------------------");
 				choice = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
@@ -194,13 +199,13 @@ namespace code
 				{
 					case 1:
 						{
-							Console.WriteLine("Sum of 1, 2, 3 and 4 is: " + calculateSum([1, 2, 3, 4]));
+							Console.WriteLine("Sum of 1, 2, 3 and 4 is: " + CalculateSum([1, 2, 3, 4]));
 							break;
 						}
 					case 2:
 						{
 							string text = "defghijklmnOpPqrstuvwxyzABCCCC";
-							Console.WriteLine(isTextHoloalphabetic(text) ? text + " is holoalphabetic." : text + "is not holoalphabetic.");
+							Console.WriteLine(IsTextHoloalphabetic(text) ? text + " is holoalphabetic." : text + "is not holoalphabetic.");
 							break;
 						}
 					case 3:
@@ -208,7 +213,7 @@ namespace code
 							int a = 5, b = 10;
 							Console.WriteLine("Before swap: a: " + a + " b: " + b);
 
-							swap(ref a, ref b);
+							Swap(ref a, ref b);
 
 							Console.WriteLine("After swap: a: " + a + " b: " + b);
 							break;
@@ -219,19 +224,29 @@ namespace code
 							Console.WriteLine("Input: " + text);
 
 							Console.Write("Output: ");
-							printCharacterCount(text);
+							PrintCharacterCount(text);
 							break;
 						}
 					case 5:
 						{
-							playLotoRound();
+							PlayLotoRound();
+							break;
+						}
+					case 6:
+						{
+							
+							break;
+						}
+					case 7:
+						{
+							
 							break;
 						}
 
 					default:
 						break;
 				}
-			} while (choice >= 1 && choice <= 5);
+			} while (choice >= 1 && choice <= 7);
 		}
 
 		static void Main(string[] args)
