@@ -1,18 +1,17 @@
-﻿
 using System.Text;
 
 namespace code
 {
-	static class Solutions1
+	public static class P1Req1To6
 	{
 		// 1. a). Write a method that calculates the sum of two numbers given as parameters.
-		static int CalculateSum(int a, int b)
+		public static int CalculateSum(int a, int b)
 		{
 			return a + b;
 		}
 
 		// 1. b). Calculate the sum of the numbers without using the operator "+".
-		static int CalculateSumWithoutOperator(int a, int b)
+		public static int CalculateSumWithoutOperator(int a, int b)
 		{
 			while (b != 0)
 			{
@@ -26,7 +25,7 @@ namespace code
 
 		// 1. c). Apply the concept of overloading for this method (calculateSum)
 		// 1. d). Add the posibility to calculate the sum of 3, 4, 5, etc. numbers. (variable number of parameters)
-		static int CalculateSum(int[] numbers)
+		public static int CalculateSum(int[] numbers)
 		{
 			int sum = 0;
 
@@ -40,7 +39,7 @@ namespace code
 
 		// 2. Find out if a sequence of characters given as input data represents a holoalphabetic sentence (a panagram = a text that uses
 		// all the letters of the alphabet, in this case the english alphabet).
-		static Boolean IsTextHoloalphabetic(string text)
+		public static Boolean IsTextHoloalphabetic(string text)
 		{
 			bool[] alphabetLetters = new bool[26];
 
@@ -66,7 +65,7 @@ namespace code
 		}
 
 		// 3. Write a method that swaps the value of two variables but doesnt use a third variable
-		static void Swap(ref int a, ref int b)
+		public static void Swap(ref int a, ref int b)
 		{
 			a += b;
 			b = a - b;
@@ -77,7 +76,7 @@ namespace code
 		// It should be displayed in the following format:
 		// Input: aaanna issss attt ssschhoooool
 		// Output: a3n2a1 i1s4 a1t3 s3c1h2o5l1
-		static void PrintCharacterCount(string text)
+		public static void PrintCharacterCount(string text)
 		{
 			string result = "";
 			char lastLetter = text[0];
@@ -113,7 +112,7 @@ namespace code
 		// 5. Starting from the idea of loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between 
 		// 1 and 49), and the program responds whether it is a winner or not. The game is won if the inserted numbers are
 		// the same as the generated ones. Keep in mind that the order doesnt have to be the same.
-		static void PlayLotoRound()
+		public static void PlayLotoRound()
 		{
 			int[] generatedNumbers = new int[6], insertedNumbers = new int[6];
 
@@ -174,7 +173,7 @@ namespace code
 
 		// 6. Starting from a list of pupil names, display: a). alphabetically all the names that contain at least one letter 'a',
 		// b). all names that have at least 5 letters, c). the shortest name, d). the longest name, e). the number of times the name Alina appears
-		static void PrintPupils(string[] names)
+		public static void PrintPupils(string[] names)
 		{
 			string[] ascendingNamesWithA = [.. names.Where(name => name.ToLower().Contains('a')).OrderBy(name => name)];
 			string[] namesWith5Letters = [.. names.Where(name => name.Length >= 5)];
@@ -189,124 +188,5 @@ namespace code
 			Console.WriteLine("e) " + alinaCount);
 		}
 
-		// 7. We have the following words: student, profesor, curs, numar, locuri, nume, cnp, prenume, denumire, curs, nota, durata, persoana.
-		// Create a structure of classes that contains methods, fields, etc, in which you can explain oop concepts (abstraction, encapsulation, inheritance and polymorphism).
-		// Add any other fields and methods that you need to fulfill these requirements.
-
-
-		static void openMenu()
-		{
-			int choice = 0;
-			do
-			{
-				Console.WriteLine("-------------------------------------------------------------------------");
-				Console.WriteLine("1 --> sum of numbers given as parameters.");
-				Console.WriteLine("2 --> holoalphabetic sentence.");
-				Console.WriteLine("3 --> swap two variables without an additional third one.");
-				Console.WriteLine("4 --> display the number of appearances of each character in order.");
-				Console.WriteLine("5 --> play a loto round.");
-				Console.WriteLine("6 --> display different types of lists from a list of pupils.");
-				Console.WriteLine("7 --> oop tutorial");
-				Console.WriteLine("anything else --> Exit");
-				Console.WriteLine("-------------------------------------------------------------------------");
-				choice = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
-
-				switch (choice)
-				{
-					case 1:
-						{
-							Console.WriteLine("Sum of 1, 2, 3 and 4 is: " + CalculateSum([1, 2, 3, 4]));
-							break;
-						}
-					case 2:
-						{
-							string text = "defghijklmnOpPqrstuvwxyzABCCCC";
-							Console.WriteLine(IsTextHoloalphabetic(text) ? text + " is holoalphabetic." : text + "is not holoalphabetic.");
-							break;
-						}
-					case 3:
-						{
-							int a = 5, b = 10;
-							Console.WriteLine("Before swap: a: " + a + " b: " + b);
-
-							Swap(ref a, ref b);
-
-							Console.WriteLine("After swap: a: " + a + " b: " + b);
-							break;
-						}
-					case 4:
-						{
-							string text = " aaanna issss attt ssschhoooool.    ";
-							Console.WriteLine("Input: " + text);
-
-							Console.Write("Output: ");
-							PrintCharacterCount(text);
-							break;
-						}
-					case 5:
-						{
-							PlayLotoRound();
-							break;
-						}
-					case 6:
-						{
-							PrintPupils(["Diana", "Alina", "Andrei", "Marius", "Lavinia", "David", "George", "Laurentiu", "Larisa", "Edi", "Mihai", "Sergiu", "Georgiana", "Alina"]);
-							break;
-						}
-					case 7:
-						{
-							Course maths = new("Mathematics", 30);
-							Course machineLearning = new("Machine Learning", 12);
-							Course oop = new("Object Oriented Programming", 20);
-							Course dataStruct = new("Data Structures", 15);
-
-							Teacher teacher1 = new("Marin", "Shau", "123456789");
-							Teacher teacher2 = new("Marcel", "Barabula", "12345678");
-
-							Student student1 = new("Joe", "Don", "1234567");
-							Student student2 = new("Daniel", "Guta", "123456");
-							Student student3 = new("Maria", "Dobrin", "12345");
-
-							List<Person> people = [teacher1, teacher2, student1, student2, student3];
-
-							teacher1.AddCourse(maths);
-							teacher1.AddCourse(machineLearning);
-							teacher1.AddCourse(oop);
-							teacher2.AddCourse(dataStruct);
-
-							student1.EnrollInCourse(maths);
-							student1.EnrollInCourse(machineLearning);
-							student2.EnrollInCourse(maths);
-							student2.EnrollInCourse(machineLearning);
-							student2.EnrollInCourse(dataStruct);
-							student3.EnrollInCourse(oop);
-							student3.EnrollInCourse(dataStruct);
-
-							student1.AddGrade(maths, 10);
-							student2.AddGrade(maths, 7);
-							student2.AddGrade(dataStruct, 9);
-							student3.AddGrade(oop, 8);
-							student3.AddGrade(dataStruct, 6);
-
-							foreach (Person person in people)
-							{
-								person.DisplayDetails();
-								Console.WriteLine();
-							}
-							break;
-						}
-
-					default:
-						break;
-				}
-			} while (choice >= 1 && choice <= 7);
-		}
-
-		static void Main(string[] args)
-		{
-			openMenu();
-		}
 	}
-
-
 }
