@@ -189,19 +189,24 @@ namespace code
 			Console.WriteLine("e) " + alinaCount);
 		}
 
+		// 7. We have the following words: student, profesor, curs, numar, locuri, nume, cnp, prenume, denumire, curs, nota, durata, persoana.
+		// Create a structure of classes that contains methods, fields, etc, in which you can explain oop concepts (abstraction, encapsulation, inheritance and polymorphism).
+		// Add any other fields and methods that you need to fulfill these requirements.
+
+
 		static void openMenu()
 		{
 			int choice = 0;
 			do
 			{
 				Console.WriteLine("-------------------------------------------------------------------------");
-				Console.WriteLine("1 --> Calculate the sum of numbers given as parameters.");
-				Console.WriteLine("2 --> Find out if a sequence of characters given as input data represents a holoalphabetic sentence (a panagram = a text that uses\n   all the letters of the alphabet, in this case the english alphabet).");
-				Console.WriteLine("3 --> Write a method that swaps the value of two variables but doesnt use a third variable");
-				Console.WriteLine("4 --> Write a method that displays the number of appearances of each character in a non-null string.");
-				Console.WriteLine("5 --> Starting from the idea of loto 6/49, create a program that simulates a round. The participant inserts 6 numbers (between\n   1 and 49), and the program responds whether it is a winner or not. The game is won if the inserted numbers are\n   the same as the generated ones. Keep in mind that the order doesnt have to be the same.");
-				Console.WriteLine("6 --> Starting from a list of pupil names, display: a). alphabetically all the names that contain at least one letter 'a',\n   b). all names that have at least 5 letters, c). the shortest name, d). the longest name, e). the number of times the name Alina appears");
-				Console.WriteLine("7 --> ");
+				Console.WriteLine("1 --> sum of numbers given as parameters.");
+				Console.WriteLine("2 --> holoalphabetic sentence.");
+				Console.WriteLine("3 --> swap two variables without an additional third one.");
+				Console.WriteLine("4 --> display the number of appearances of each character in order.");
+				Console.WriteLine("5 --> play a loto round.");
+				Console.WriteLine("6 --> display different types of lists from a list of pupils.");
+				Console.WriteLine("7 --> oop tutorial");
 				Console.WriteLine("anything else --> Exit");
 				Console.WriteLine("-------------------------------------------------------------------------");
 				choice = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
@@ -245,12 +250,49 @@ namespace code
 						}
 					case 6:
 						{
-							PrintPupils(["Alina", "Daniela", "Andrei", "Marius", "Lavinia", "David", "George", "Laurentiu", "Larisa", "Edi", "Mihai", "Sergiu", "Georgiana", "Alina"]);
+							PrintPupils(["Diana", "Alina", "Andrei", "Marius", "Lavinia", "David", "George", "Laurentiu", "Larisa", "Edi", "Mihai", "Sergiu", "Georgiana", "Alina"]);
 							break;
 						}
 					case 7:
 						{
+							Course maths = new("Mathematics", 30);
+							Course machineLearning = new("Machine Learning", 12);
+							Course oop = new("Object Oriented Programming", 20);
+							Course dataStruct = new("Data Structures", 15);
 
+							Teacher teacher1 = new("Marin", "Shau", "123456789");
+							Teacher teacher2 = new("Marcel", "Barabula", "12345678");
+
+							Student student1 = new("Joe", "Don", "1234567");
+							Student student2 = new("Daniel", "Guta", "123456");
+							Student student3 = new("Maria", "Dobrin", "12345");
+
+							List<Person> people = [teacher1, teacher2, student1, student2, student3];
+
+							teacher1.AddCourse(maths);
+							teacher1.AddCourse(machineLearning);
+							teacher1.AddCourse(oop);
+							teacher2.AddCourse(dataStruct);
+
+							student1.EnrollInCourse(maths);
+							student1.EnrollInCourse(machineLearning);
+							student2.EnrollInCourse(maths);
+							student2.EnrollInCourse(machineLearning);
+							student2.EnrollInCourse(dataStruct);
+							student3.EnrollInCourse(oop);
+							student3.EnrollInCourse(dataStruct);
+
+							student1.AddGrade(maths, 10);
+							student2.AddGrade(maths, 7);
+							student2.AddGrade(dataStruct, 9);
+							student3.AddGrade(oop, 8);
+							student3.AddGrade(dataStruct, 6);
+
+							foreach (Person person in people)
+							{
+								person.DisplayDetails();
+								Console.WriteLine();
+							}
 							break;
 						}
 
@@ -265,4 +307,6 @@ namespace code
 			openMenu();
 		}
 	}
+
+
 }
