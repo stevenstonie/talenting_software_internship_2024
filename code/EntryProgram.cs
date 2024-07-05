@@ -1,6 +1,7 @@
 ﻿using code.p1;
 using code.p1.req7;
 using code.p2;
+using code.p2.req1;
 
 namespace code
 {
@@ -127,6 +128,17 @@ namespace code
 		static void Main(string[] args)
 		{
 			OpenMenu();
+
+			Shelter myShelter = new("My shelter", 10);
+			Animal<CatBreed> cat = new Cat(CatBreed.Siamese, new DateTime(2022, 1, 1, 0, 0, 0, DateTimeKind.Utc));
+			Animal<DogBreed> dog = new Dog(DogBreed.Bulldog, new DateTime(2017, 11, 19, 0, 0, 0, DateTimeKind.Utc));
+
+			myShelter.AddAnimal(cat);
+			myShelter.AddAnimal(dog);
+
+			myShelter.DisplayAnimals();
+
+			myShelter.AdoptAnimalFromSpot(2);
 		}
 	}
 
