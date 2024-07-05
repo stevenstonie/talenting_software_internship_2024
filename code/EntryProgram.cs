@@ -1,4 +1,8 @@
-﻿namespace code
+﻿using code.p1;
+using code.p1.req7;
+using code.p2;
+
+namespace code
 {
 	static class EntryProgram
 	{
@@ -23,13 +27,13 @@
 				{
 					case 1:
 						{
-							Console.WriteLine("Sum of 1, 2, 3 and 4 is: " + P1Req1To6.CalculateSum([1, 2, 3, 4]));
+							Console.WriteLine("Sum of 1, 2, 3 and 4 is: " + Req1To6.CalculateSum([1, 2, 3, 4]));
 							break;
 						}
 					case 2:
 						{
 							string text = "defghijklmnOpPqrstuvwxyzABCCCC";
-							Console.WriteLine(P1Req1To6.IsTextHoloalphabetic(text) ? text + " is holoalphabetic." : text + "is not holoalphabetic.");
+							Console.WriteLine(Req1To6.IsTextHoloalphabetic(text) ? text + " is holoalphabetic." : text + "is not holoalphabetic.");
 							break;
 						}
 					case 3:
@@ -37,7 +41,7 @@
 							int a = 5, b = 10;
 							Console.WriteLine("Before swap: a: " + a + " b: " + b);
 
-							P1Req1To6.Swap(ref a, ref b);
+							Req1To6.Swap(ref a, ref b);
 
 							Console.WriteLine("After swap: a: " + a + " b: " + b);
 							break;
@@ -48,17 +52,17 @@
 							Console.WriteLine("Input: " + text);
 
 							Console.Write("Output: ");
-							P1Req1To6.PrintCharacterCount(text);
+							Req1To6.PrintCharacterCount(text);
 							break;
 						}
 					case 5:
 						{
-							P1Req1To6.PlayLotoRound();
+							Req1To6.PlayLotoRound();
 							break;
 						}
 					case 6:
 						{
-							P1Req1To6.PrintPupils(["Diana", "Alina", "Andrei", "Marius", "Lavinia", "David", "George", "Laurentiu", "Larisa", "Edi", "Mihai", "Sergiu", "Georgiana", "Alina"]);
+							Req1To6.PrintPupils(["Diana", "Alina", "Andrei", "Marius", "Lavinia", "David", "George", "Laurentiu", "Larisa", "Edi", "Mihai", "Sergiu", "Georgiana", "Alina"]);
 							break;
 						}
 					case 7:

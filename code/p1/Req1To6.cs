@@ -1,8 +1,8 @@
 using System.Text;
 
-namespace code
+namespace code.p1
 {
-	public static class P1Req1To6
+	public static class Req1To6
 	{
 		// 1. a). Write a method that calculates the sum of two numbers given as parameters.
 		public static int CalculateSum(int a, int b)
@@ -121,11 +121,11 @@ namespace code
 
 			if (CheckIfWinner(generatedNumbers, insertedNumbers))
 			{
-				Console.WriteLine("You won!");
+				Console.WriteLine("Winner!🤑🤑🤑🎰🎰💸💸");
 			}
 			else
 			{
-				Console.WriteLine("You lost!");
+				Console.WriteLine("Better luck next time😪");
 			}
 
 			Console.WriteLine("Generated numbers: " + string.Join(", ", generatedNumbers));
