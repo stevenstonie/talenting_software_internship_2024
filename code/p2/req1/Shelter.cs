@@ -16,6 +16,7 @@ namespace code.p2.req1
 				}
 			}
 
+			Console.WriteLine("Shelter is full.");
 			return false;
 		}
 
@@ -73,18 +74,18 @@ namespace code.p2.req1
 		{
 			Random random = new();
 			int animalType = random.Next(0, 2);
-			int breedNb = random.Next(1, 9);
+			int breedId = random.Next(1, 9);
 			int year = random.Next(2010, 2024);
 			int month = random.Next(1, 13);
 			int day = random.Next(1, 29);
 
 			if (animalType == 0)
 			{
-				return new Dog((DogBreed)breedNb, new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc));
+				return new Dog((DogBreed)breedId, new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc));
 			}
 			else
 			{
-				return new Cat((CatBreed)breedNb, new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc));
+				return new Cat((CatBreed)breedId, new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Utc));
 			}
 		}
 
@@ -116,7 +117,7 @@ namespace code.p2.req1
 						}
 					case 3:
 						{
-							Console.WriteLine("Choose a spot to adopt a pet: ");
+							Console.Write("Choose a spot to adopt a pet: ");
 							AdoptAnimalFromSpot(int.TryParse(Console.ReadLine(), out int spotChoice) ? spotChoice : 0);
 							break;
 						}
