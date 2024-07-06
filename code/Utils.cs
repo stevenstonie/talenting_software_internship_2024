@@ -1,6 +1,5 @@
 namespace code
 {
-
 	public static class Utils
 	{
         public static (int years, int months, int days) ElapsedDate(DateTime birthDate)

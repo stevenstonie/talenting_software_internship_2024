@@ -20,6 +20,7 @@ namespace code
 				Console.WriteLine("5 --> play a loto round.");
 				Console.WriteLine("6 --> display different types of lists from a list of pupils.");
 				Console.WriteLine("7 --> oop tutorial");
+				Console.WriteLine("8 --> shelter spot management");
 				Console.WriteLine("anything else --> Exit");
 				Console.WriteLine("-------------------------------------------------------------------------");
 				choice = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
@@ -108,11 +109,19 @@ namespace code
 							}
 							break;
 						}
+					case 8:
+						{
+							Shelter newShelter = new("Sun Ray Shelter for all fluffy (and baldy) little ones", 10);
+
+							newShelter.RunShelter();
+
+							break;
+						}
 
 					default:
 						break;
 				}
-			} while (choice >= 1 && choice <= 7);
+			} while (choice >= 1 && choice <= 8);
 
 			Console.Write("Exiting program");
 			Thread.Sleep(700);
@@ -128,17 +137,6 @@ namespace code
 		static void Main(string[] args)
 		{
 			OpenMenu();
-
-			Shelter myShelter = new("My shelter", 10);
-			Animal<CatBreed> cat = new Cat(CatBreed.Siamese, new DateTime(2022, 1, 1, 0, 0, 0, DateTimeKind.Utc));
-			Animal<DogBreed> dog = new Dog(DogBreed.Bulldog, new DateTime(2017, 11, 19, 0, 0, 0, DateTimeKind.Utc));
-
-			myShelter.AddAnimal(cat);
-			myShelter.AddAnimal(dog);
-
-			myShelter.DisplayAnimals();
-
-			myShelter.AdoptAnimalFromSpot(2);
 		}
 	}
 
