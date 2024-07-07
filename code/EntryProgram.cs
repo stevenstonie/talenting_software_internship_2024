@@ -2,6 +2,7 @@
 using code.p1.req7;
 using code.p2;
 using code.p2.req1;
+using code.p2.req2;
 
 namespace code
 {
@@ -13,14 +14,15 @@ namespace code
 			do
 			{
 				Console.WriteLine("-------------------------------------------------------------------------");
-				Console.WriteLine("1 --> sum of numbers given as parameters.");
-				Console.WriteLine("2 --> holoalphabetic sentence.");
-				Console.WriteLine("3 --> swap two variables without an additional third one.");
-				Console.WriteLine("4 --> display the number of appearances of each character in order.");
-				Console.WriteLine("5 --> play a loto round.");
-				Console.WriteLine("6 --> display different types of lists from a list of pupils.");
+				Console.WriteLine("1 --> sum of numbers given as parameters");
+				Console.WriteLine("2 --> holoalphabetic sentence");
+				Console.WriteLine("3 --> swap two variables without an additional third one");
+				Console.WriteLine("4 --> display the number of appearances of each character in order");
+				Console.WriteLine("5 --> play a loto round");
+				Console.WriteLine("6 --> display different types of lists from a list of pupils");
 				Console.WriteLine("7 --> oop tutorial");
 				Console.WriteLine("8 --> shelter spot management");
+				Console.WriteLine("9 --> flower shop");
 				Console.WriteLine("anything else --> Exit");
 				Console.WriteLine("-------------------------------------------------------------------------");
 				choice = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
@@ -119,13 +121,16 @@ namespace code
 						}
 					case 9:
 						{
+							FlowerShop newFlowerShop = new("Floricica");
+
+							newFlowerShop.RunShop();
 
 							break;
 						}
 					default:
 						break;
 				}
-			} while (choice >= 1 && choice <= 8);
+			} while (choice >= 1 && choice <= 9);
 
 			Console.Write("Exiting program");
 			Thread.Sleep(700);
