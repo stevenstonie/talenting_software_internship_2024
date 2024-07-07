@@ -42,26 +42,25 @@ namespace code.p1
 		public static Boolean IsTextHoloalphabetic(string text)
 		{
 			bool[] alphabetLetters = new bool[26];
+			byte count = 0;
 
 			for (int i = 0; i < text.Length; i++)
 			{
 				char letter = char.ToLower(text[i]);
 
-				if (letter >= 'a' && letter <= 'z')
+				if (letter >= 'a' && letter <= 'z' && !alphabetLetters[letter - 'a'])
 				{
 					alphabetLetters[letter - 'a'] = true;
+					++count;
 				}
-			}
 
-			for (int i = 0; i < alphabetLetters.Length; i++)
-			{
-				if (!alphabetLetters[i])
+				if (count == 26)
 				{
-					return false;
+					return true;
 				}
 			}
 
-			return true;
+			return false;
 		}
 
 		// 3. Write a method that swaps the value of two variables but doesnt use a third variable

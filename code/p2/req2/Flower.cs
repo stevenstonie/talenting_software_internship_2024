@@ -2,7 +2,7 @@ namespace code.p2.req2
 {
 	public class Flower(FlowerType type)
     {
-        public FlowerType Type { get; } = type;
+        private FlowerType Type { get; } = type;
         public int Price { get; } = type switch
         {
             FlowerType.Rose => 10,

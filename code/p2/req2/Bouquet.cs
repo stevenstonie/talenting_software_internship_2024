@@ -3,11 +3,12 @@ namespace code.p2.req2
 
 	public class Bouquet
 	{
-		public BouquetType Type { get; }
-		public List<Flower> Flowers { get; }
+		private BouquetType Type { get; }
+		private List<Flower> Flowers { get; }
 		public int Price { get; }
 
-		public Bouquet(BouquetType type) {
+		public Bouquet(BouquetType type)
+		{
 			Type = type;
 			Flowers = AddFlowersToBouquet(type);
 			Price = Flowers.Sum(flower => flower.Price) + 2;

@@ -66,7 +66,7 @@ namespace code.p2.req1
 			}
 			else
 			{
-				Console.WriteLine("No spots available.");
+				Console.WriteLine("No free spots available.");
 			}
 		}
 

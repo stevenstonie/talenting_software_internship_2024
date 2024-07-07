@@ -1,6 +1,6 @@
 namespace code.p1.req7
 {
-	public class Student(string firstName, string lastName, string personalNumericCode) : Person(firstName, lastName, personalNumericCode)
+    public class Student(string firstName, string lastName, string personalNumericCode) : Person(firstName, lastName, personalNumericCode)
 	{
         private List<Course> Courses { get; set; } = [];
         private Dictionary<Course, int> Grades { get; set; } = [];

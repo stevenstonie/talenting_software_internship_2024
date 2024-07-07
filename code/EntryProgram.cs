@@ -6,7 +6,7 @@ using code.p2.req2;
 
 namespace code
 {
-	static class EntryProgram
+    static class EntryProgram
 	{
 		static void OpenMenu()
 		{

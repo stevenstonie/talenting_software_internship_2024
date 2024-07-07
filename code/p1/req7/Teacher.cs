@@ -1,6 +1,6 @@
 namespace code.p1.req7
 {
-	public class Teacher(string firstName, string lastName, string personalNumericCode) : Person(firstName, lastName, personalNumericCode)
+    public class Teacher(string firstName, string lastName, string personalNumericCode) : Person(firstName, lastName, personalNumericCode)
 	{
 		private List<Course> courses = [];
 

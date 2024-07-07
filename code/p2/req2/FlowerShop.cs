@@ -18,7 +18,7 @@ namespace code.p2.req2
 			FlowersSold.Add((flowerToSell, dateOfSelling));
 		}
 
-		private void DisplayInventory((int, byte) dateOfSelling)
+		private void DisplaySalesInfoByMonth((int, byte) dateOfSelling)
 		{
 			List<(Bouquet, (int, byte))> bouquetsSoldInMonth = BouquetsSold
 					.Where(bouquetSold => bouquetSold.Item2.Item1 == dateOfSelling.Item1
@@ -31,12 +31,12 @@ namespace code.p2.req2
 			Console.WriteLine($"Sold in {dateOfSelling.Item1}/{dateOfSelling.Item2}:");
 			Console.WriteLine($"{bouquetsSoldInMonth.Count} bouquets for a total of {bouquetsSoldInMonth.Sum(bouquet => bouquet.Item1.Price)} RON.");
 			Console.WriteLine("and");
-			Console.WriteLine($"{flowersSoldInMonth.Count} flowers for a total of {flowersSoldInMonth.Sum(flower => flower.Item1.Price)} RON.");
+			Console.WriteLine($"{flowersSoldInMonth.Count} individual flowers for a total of {flowersSoldInMonth.Sum(flower => flower.Item1.Price)} RON.");
 		}
 
-		private (int?, byte?) GetDateFromUser()
+		private static (int?, byte?) GetDateFromUser()
 		{
-			Console.Write("Choose date (in format yyyy/mm/dd): ");
+			Console.Write("Choose a date (in format yyyy/mm/dd): ");
 			string? date = Console.ReadLine();
 
 			if (date != null && date.Length >= 7)
@@ -55,7 +55,7 @@ namespace code.p2.req2
 		{
 			Console.WriteLine($"Welcome to Flower Shop {Name}!");
 
-			int choice = 0;
+			int choice;
 			do
 			{
 				Console.WriteLine("-------------------------------------------------------------------------");
@@ -102,7 +102,7 @@ namespace code.p2.req2
 							(int?, byte?) date = GetDateFromUser();
 
 							if (date is not (null, null))
-								DisplayInventory((date.Item1 ?? 0, date.Item2 ?? 0));
+								DisplaySalesInfoByMonth((date.Item1 ?? 0, date.Item2 ?? 0));
 
 							break;
 						}
