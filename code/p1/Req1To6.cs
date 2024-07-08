@@ -131,6 +131,80 @@ namespace code.p1
 			Console.WriteLine("Inserted numbers: " + string.Join(", ", insertedNumbers));
 		}
 
+		// 6. Starting from a list of pupil names, display: a). alphabetically all the names that contain at least one letter 'a',
+		// b). all names that have at least 5 letters, c). the shortest name, d). the longest name, e). the number of times the name Alina appears
+		public static void PrintPupils(string[] names)
+		{
+			string[] ascendingNamesWithA = ReturnWordsContainingLetter(names, 'a');
+
+			string[] namesWith5LettersOrMore = ReturnWordsWithNbOfLettersOrMore(names, 5);
+
+			string shortestName = GetShortestWord(names);
+
+			string longestName = GetLongestWord(names);
+
+			int alinaCount = GetWordCount(names, "Alina");
+
+			Console.WriteLine("a) " + string.Join(", ", ascendingNamesWithA));
+			Console.WriteLine("b) " + string.Join(", ", namesWith5LettersOrMore));
+			Console.WriteLine("c) " + shortestName);
+			Console.WriteLine("d) " + longestName);
+			Console.WriteLine("e) " + alinaCount);
+		}
+
+		private static string[] ReturnWordsContainingLetter(string[] words, char letter)
+		{
+			return [.. words
+					.Where(word
+					=> word.ToLower()
+					.Contains(letter))
+					.OrderBy(word => word)];
+		}
+
+		private static string[] ReturnWordsWithNbOfLettersOrMore(string[] words, int nb)
+		{
+			return [.. words
+					.Where(word
+					=> word.Length >= nb)];
+		}
+
+		private static string GetShortestWord(string[] words)
+		{
+			string shortestWord = words[0];
+
+			foreach (string name in words)
+			{
+				if (name.Length < shortestWord.Length)
+				{
+					shortestWord = name;
+				}
+			}
+
+			return shortestWord;
+		}
+
+		private static string GetLongestWord(string[] words)
+		{
+			string longestWord = words[0];
+
+			foreach (string name in words)
+			{
+				if (name.Length > longestWord.Length)
+				{
+					longestWord = name;
+				}
+			}
+
+			return longestWord;
+		}
+
+		private static int GetWordCount(string[] words, string wordToSearchFor)
+		{
+			return words
+					.Count(word
+					=> word.Equals(wordToSearchFor, StringComparison.CurrentCultureIgnoreCase));
+		}
+
 		private static bool CheckIfWinner(int[] generatedNumbers, int[] insertedNumbers)
 		{
 			foreach (int number in insertedNumbers)
@@ -169,23 +243,5 @@ namespace code.p1
 				} while (insertedNumbers.Take(i).Contains(insertedNumbers[i]) || insertedNumbers[i] < 1 || insertedNumbers[i] > 49);
 			}
 		}
-
-		// 6. Starting from a list of pupil names, display: a). alphabetically all the names that contain at least one letter 'a',
-		// b). all names that have at least 5 letters, c). the shortest name, d). the longest name, e). the number of times the name Alina appears
-		public static void PrintPupils(string[] names)
-		{
-			string[] ascendingNamesWithA = [.. names.Where(name => name.ToLower().Contains('a')).OrderBy(name => name)];
-			string[] namesWith5Letters = [.. names.Where(name => name.Length >= 5)];
-			string shortestName = names.OrderBy(name => name.Length).First();
-			string longestName = names.OrderByDescending(name => name.Length).First();
-			int alinaCount = names.Count(name => name.ToLower() == "alina");
-
-			Console.WriteLine("a) " + string.Join(", ", ascendingNamesWithA));
-			Console.WriteLine("b) " + string.Join(", ", namesWith5Letters));
-			Console.WriteLine("c) " + shortestName);
-			Console.WriteLine("d) " + longestName);
-			Console.WriteLine("e) " + alinaCount);
-		}
-
 	}
 }
