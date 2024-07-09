@@ -2,17 +2,15 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+}
 
+:root {
 	--primary-color: #5139be;
-	--secondary-color: #e6b01d;
-}
-
-html,
-body {
-	height: 100%;
+	--primary-color-darker: #432fa0;
+	--secondary-color: #eeb71e;
+	--secondary-color-less-opaque: #eeb61e7f;
 }
 
 body {
-	margin: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
