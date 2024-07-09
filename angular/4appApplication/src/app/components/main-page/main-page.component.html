@@ -2,9 +2,12 @@
 
 <div class="container">
 	<div class="grid">
-		<div class="rectangle">register form</div>
-		<div class="rectangle">hangman</div>
-		<div class="rectangle">tic-tac-toe</div>
-		<div class="rectangle">movie/show list</div>
+		<div class="rectangle" (mouseup)="navigateTo('/registration-form')">
+			register form</div>
+		<div class="rectangle" (mouseup)="navigateTo('/hangman')">hangman</div>
+		<div class="rectangle" (mouseup)="navigateTo('/tic-tac-toe')">tic-tac-toe
+		</div>
+		<div class="rectangle" (mouseup)="navigateTo('/movie-list')">movie/show
+			list</div>
 	</div>
 </div>

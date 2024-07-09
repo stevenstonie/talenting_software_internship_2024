@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-
+  navigateTo(url: string) {
+    window.open(url, '_blank');
+  }
 }
