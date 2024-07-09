@@ -1,10 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.scss']
 })
-export class RegistrationFormComponent {
+export class RegistrationFormComponent implements OnInit {
+  registrationForm: FormGroup;
 
+  constructor(private formBuilder: FormBuilder) {
+    this.registrationForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/)]],
+      passwordConfirmed: ['', [Validators.required]]
+    }, {
+      validators: this.passwordMatchingChecker as ValidatorFn
+    });
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  passwordMatchingChecker(formGroup: FormGroup): ValidationErrors | null {
+    const password = formGroup.get('password')?.value;
+    const passwordConfirmed = formGroup.get('passwordConfirmed')?.value;
+    return password === passwordConfirmed ? null : { notMatching: true };
+  }
+
+  onSubmit() {
+    if (this.registrationForm.valid) {
+      alert(JSON.stringify(this.registrationForm.value));
+    }
+  }
+
+  get name() {
+    return this.registrationForm.get('name');
+  }
+
+  get email() {
+    return this.registrationForm.get('email');
+  }
+
+  get phoneNumber() {
+    return this.registrationForm.get('phoneNumber');
+  }
+
+  get password() {
+    return this.registrationForm.get('password');
+  }
+
+  get passwordConfirmed() {
+    return this.registrationForm.get('passwordConfirmed');
+  }
 }

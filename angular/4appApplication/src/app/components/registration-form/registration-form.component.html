@@ -1,1 +1,55 @@
-<p>registration-form works!</p>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+	<div>
+		<label for="name">name: </label>
+		<input id="name" formControlName="name">
+		<div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="error">
+			<div *ngIf="name?.errors?.['required']" style="color: red;">name is required.</div>
+			<div *ngIf="name?.errors?.['minlength']" style="color: red;">name must be at least 3 characters long.</div>
+			<div *ngIf="name?.errors?.['pattern']" style="color: red;">name must contain only letters.</div>
+		</div>
+	</div>
+
+	<div>
+		<label for="email">email: </label>
+		<input id="email" formControlName="email">
+		<div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error">
+			<div *ngIf="email?.errors?.['required']" style="color: red;">email is required.</div>
+			<div *ngIf="email?.errors?.['email']" style="color: red;">email doesnt have the right format.</div>
+		</div>
+	</div>
+
+	<div>
+		<label for="phoneNumber">phone number: </label>
+		<input id="phone-number" formControlName="phoneNumber">
+		<div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)" class="error">
+			<div *ngIf="phoneNumber?.errors?.['required']" style="color: red;">phone number is required.</div>
+			<div *ngIf="phoneNumber?.errors?.['pattern']" style="color: red;">phone number must contain only numbers.
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<label for="password">password: </label>
+		<input id="password" type="password" formControlName="password">
+		<div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
+			<div *ngIf="password?.errors?.['minlength']" style="color: red;">password must be at least 8 characters
+				long.</div>
+			<div *ngIf="password?.errors?.['pattern']" style="color: red;">password must contain at least one lowercase
+				letter, one uppercase letter and one digit.</div>
+		</div>
+	</div>
+
+	<div>
+		<label for="passwordConfirmed">re-enter password: </label>
+		<input id="password-confirmed" type="password" formControlName="passwordConfirmed">
+		<div *ngIf="passwordConfirmed?.invalid && (passwordConfirmed?.dirty || passwordConfirmed?.touched)"
+			class="error">
+			<div *ngIf="passwordConfirmed?.errors?.['required']" style="color: red;">password confirmation is required.
+			</div>
+			<div *ngIf="passwordConfirmed?.errors?.['notMatching']" style="color: red;">passwords do not
+				match.</div>
+		</div>
+	</div>
+
+	<button type="submit" [disabled]="registrationForm.invalid">submit</button>
+</form>
