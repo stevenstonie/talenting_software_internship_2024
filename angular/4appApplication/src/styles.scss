@@ -9,6 +9,14 @@
 	--primary-color-darker: #432fa0;
 	--secondary-color: #eeb71e;
 	--secondary-color-less-opaque: #eeb61e7f;
+	--third-color: #A6BE39;
+}
+
+body,
+html {
+	background: linear-gradient(to right, var(--third-color), var(--secondary-color));
+	background-size: 200% 100%;
+	animation: gradientHorizontalMovement 15s linear infinite;
 }
 
 body {
@@ -19,4 +27,26 @@ body {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
+}
+
+@keyframes gradientHorizontalMovement {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	25% {
+		background-position: 50% 100%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	75% {
+		background-position: 50% 0%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
 }

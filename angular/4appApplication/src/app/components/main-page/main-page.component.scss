@@ -20,16 +20,16 @@
 	user-select: none;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--primary-color);
+	background-color: rgba(77, 53, 194, 0.4);
 	color: white;
 	font-size: 1.5em;
 	text-align: center;
 	border-radius: 10px;
 	cursor: pointer;
-	transition: transform 0.3s, background-color 0.3s;
+	transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
 
 	&:hover {
-		background-color: var(--primary-color-darker);
+		background-color: var(--primary-color);
 		transform: scale(1.1);
 		box-shadow: 0 15px 20px var(--secondary-color-less-opaque);
 	}
@@ -37,15 +37,6 @@
 	&:active {
 		transform: scale(1.0);
 	}
-}
-
-.iframe-preview {
-	width: 10%;
-	height: 10%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1;
 }
 
 .grid {

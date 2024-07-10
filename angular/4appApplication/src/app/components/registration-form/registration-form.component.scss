@@ -16,10 +16,11 @@ form {
 }
 
 .user-input {
-	border: 1px solid #ccc;
-	border-radius: 4px;
+	// border: 1px solid #ccc;
+	border-radius: 10px;
 	box-sizing: border-box;
 	color: #333;
+	background-color: rgba(255, 255, 255, 0.8);
 	display: block;
 	font-weight: bold;
 	width: 100%;

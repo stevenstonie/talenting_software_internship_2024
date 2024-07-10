@@ -10,3 +10,5 @@ export class MainPageComponent {
     window.open(url, '_blank');
   }
 }
+
+// TODO: create a component or smth for the button that returns the user to main-page
