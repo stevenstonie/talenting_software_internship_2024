@@ -5,18 +5,21 @@
 
 	<div class="form-group">
 		<label for="name">name: </label>
-		<input id="name" class="user-input" formControlName="name">
+		<input id="name" class="user-input" formControlName="name"
+			placeholder="should be at least 3 characters long and can only have letters and spaces">
 		<div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
 			<p *ngIf="name?.errors?.['required']" class="error-message">name is required.</p>
-			<p *ngIf="name?.errors?.['minlength']" class="error-message">name must be at least 3 characters long.
-			</p>
-			<p *ngIf="name?.errors?.['pattern']" class="error-message below">name must contain only letters.</p>
+			<p *ngIf="name?.errors?.['minlength']; else otherError" class="error-message">
+				name must be at least 3 characters long.</p>
+			<ng-template #otherError>
+				<p *ngIf="name?.errors?.['pattern']" class="error-message">name must contain only letters.</p>
+			</ng-template>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="email">email: </label>
-		<input id="email" class="user-input" formControlName="email">
+		<input id="email" class="user-input" formControlName="email" placeholder="should be a valid email">
 		<div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
 			<p *ngIf="email?.errors?.['required']" class="error-message">email is required.</p>
 			<p *ngIf="email?.errors?.['email']" class="error-message">email doesnt have the right format.</p>
@@ -25,7 +28,8 @@
 
 	<div class="form-group">
 		<label for="phoneNumber">phone number: </label>
-		<input id="phone-number" class="user-input" formControlName="phoneNumber">
+		<input id="phone-number" class="user-input" formControlName="phoneNumber"
+			placeholder="should contain only digits">
 		<div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)">
 			<p *ngIf="phoneNumber?.errors?.['required']" class="error-message">phone number is required.</p>
 			<p *ngIf="phoneNumber?.errors?.['pattern']" class="error-message">phone number must contain only numbers.
@@ -35,24 +39,32 @@
 
 	<div class="form-group">
 		<label for="password">password: </label>
-		<input id="password" class="user-input" type="password" formControlName="password">
+		<input id="password" class="user-input" type="password" formControlName="password"
+			placeholder="should be at least 8 characters long and have capitals, lowercase and digits">
 		<div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
-			<p *ngIf="password?.errors?.['minlength']" class="error-message">password must be at least 8 characters
-				long.</p>
-			<p *ngIf="password?.errors?.['pattern']" class="error-message below">password must contain at least one
-				lowercase letter, one uppercase letter and one digit.</p>
+			<p *ngIf="password?.errors?.['required']" class="error-message">password is required.</p>
+			<p *ngIf="password?.errors?.['minlength']; else otherError" class="error-message">
+				password must be at least 8 characters long.</p>
+			<ng-template #otherError>
+				<p #otherError *ngIf="password?.errors?.['pattern']" class="error-message">
+					password must contain at least one lowercase letter, one uppercase letter and one digit.
+				</p>
+			</ng-template>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="passwordConfirmed">re-enter password: </label>
-		<input id="password-confirmed" class="user-input" type="password" formControlName="passwordConfirmed">
+		<input id="password-confirmed" class="user-input" type="password" formControlName="passwordConfirmed" placeholder="re-enter the password above">
 		<div *ngIf="passwordConfirmed?.dirty || passwordConfirmed?.touched">
-			<p *ngIf="registrationForm.errors?.['notMatching']" class="error-message">passwords do not match.</p>
-			<p *ngIf="passwordConfirmed?.errors?.['required']" class="error-message below">password confirmation is
-				required.</p>
+			<p *ngIf="passwordConfirmed?.errors?.['required']; else otherError" class="error-message">
+				password confirmation is required.</p>
+			<ng-template #otherError>
+				<p *ngIf="registrationForm.errors?.['notMatching']" class="error-message">passwords do not match.</p>
+			</ng-template>
 		</div>
 	</div>
 
-	<button id="submit-button" type="submit" [disabled]="registrationForm.invalid">submit</button>
+	<button id="submit-button" class="primary-button" type="submit"
+		[disabled]="registrationForm.invalid">submit</button>
 </form>

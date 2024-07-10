@@ -2,6 +2,6 @@
 
 <h2 id="title">Hangman</h2>
 
-<button *ngIf="!gameStarted" id="start-game-button" class="custom-button" (click)="startGame()">start new game</button>
+<button *ngIf="!gameStarted" id="start-game-button" class="primary-button" (click)="startGame()">start new game</button>
 
-<button *ngIf="gameStarted" (click)="exitGame()">exit game</button>
+<button *ngIf="gameStarted" id="exit-game-button" class="primary-button" (click)="exitGame()">exit game</button>
