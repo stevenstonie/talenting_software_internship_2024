@@ -23,12 +23,6 @@ body {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.same-line {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
 @keyframes gradientHorizontalMovement {
 	0% {
 		background-position: 0% 50%;
