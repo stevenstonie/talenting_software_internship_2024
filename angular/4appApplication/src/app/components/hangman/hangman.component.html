@@ -2,6 +2,14 @@
 
 <h2 id="title">Hangman</h2>
 
-<button *ngIf="!gameStarted" id="start-game-button" class="primary-button" (click)="startGame()">start new game</button>
+<button *ngIf="!selectedWord" id="start-game-button" class="primary-button" (click)="startGame()">start new
+	game</button>
 
-<button *ngIf="gameStarted" id="exit-game-button" class="primary-button" (click)="exitGame()">exit game</button>
+<div *ngIf="selectedWord">
+	<p>word: {{wordToDisplayOnScreen()}}</p>
+	<p>wrong letters guessed: {{wrongGuesses.join(", ")}} ({{wrongGuesses.length}} out of max 6)</p>
+	<input #letterInput (keyup.enter)="guessLetter(letterInput.value); letterInput.value=''"
+		placeholder="Guess a letter" maxlength="1">
+
+	<button id="exit-game-button" class="primary-button" (click)="exitGame()">exit game</button>
+</div>

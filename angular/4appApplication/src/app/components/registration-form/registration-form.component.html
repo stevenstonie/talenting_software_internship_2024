@@ -55,7 +55,8 @@
 
 	<div class="form-group">
 		<label for="passwordConfirmed">re-enter password: </label>
-		<input id="password-confirmed" class="user-input" type="password" formControlName="passwordConfirmed" placeholder="re-enter the password above">
+		<input id="password-confirmed" class="user-input" type="password" formControlName="passwordConfirmed"
+			placeholder="re-enter the password above">
 		<div *ngIf="passwordConfirmed?.dirty || passwordConfirmed?.touched">
 			<p *ngIf="passwordConfirmed?.errors?.['required']; else otherError" class="error-message">
 				password confirmation is required.</p>
