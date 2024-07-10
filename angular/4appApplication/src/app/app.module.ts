@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { HomeButtonComponent } from './components/home-button/home-button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { HangmanComponent } from './components/hangman/hangman.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
     MainPageComponent,
     NotFoundComponent,
     RegistrationFormComponent,
-    HomeButtonComponent
+    HomeButtonComponent,
+    HangmanComponent
   ],
   imports: [
     BrowserModule,
