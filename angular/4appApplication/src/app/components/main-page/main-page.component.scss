@@ -1,11 +1,3 @@
-#title {
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	margin-top: 30px;
-	font-size: 30px;
-	text-align: center;
-	color: var(--primary-color);
-}
-
 .container {
 	display: flex;
 	justify-content: center;
@@ -21,7 +13,7 @@
 	align-items: center;
 	justify-content: center;
 	background-color: rgba(77, 53, 194, 0.3);
-	color: white;
+	color: rgba(255, 255, 255, 0.8);
 	font-size: 1.5em;
 	text-align: center;
 	border-radius: 10px;
@@ -31,7 +23,8 @@
 	&:hover {
 		background-color: var(--primary-color);
 		transform: scale(1.1);
-		box-shadow: 0 15px 20px var(--secondary-color-less-opaque);
+		color: white;
+		box-shadow: 0 15px 20px var(--primary-color-darker);
 	}
 
 	&:active {

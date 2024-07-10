@@ -10,9 +10,8 @@
 
 	&:hover {
 		background-color: var(--primary-color);
-		transform: scale(1.1);
 		color: white;
 		cursor: pointer;
-		box-shadow: 0 15px 20px var(--secondary-color-less-opaque);
+		box-shadow: 3px 3px 10px var(--primary-color-darker);
 	}
 }

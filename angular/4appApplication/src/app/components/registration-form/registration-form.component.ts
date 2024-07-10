@@ -6,8 +6,9 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.scss']
 })
-export class RegistrationFormComponent implements OnInit {
+export class RegistrationFormComponent {
   registrationForm: FormGroup;
+  arePasswordsMatching: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
     this.registrationForm = this.formBuilder.group({
@@ -21,13 +22,10 @@ export class RegistrationFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-  }
-
   passwordMatchingChecker(formGroup: FormGroup): ValidationErrors | null {
     const password = formGroup.get('password')?.value;
     const passwordConfirmed = formGroup.get('passwordConfirmed')?.value;
+
     return password === passwordConfirmed ? null : { notMatching: true };
   }
 
