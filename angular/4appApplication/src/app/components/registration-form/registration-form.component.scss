@@ -11,27 +11,28 @@ form {
 }
 
 .form-group {
-	margin-top: 20px;
+	margin-top: 30px;
 	position: relative;
 }
 
 .user-input {
-	// border: 1px solid #ccc;
+	// border: 1px solid #000;
 	border-radius: 10px;
 	box-sizing: border-box;
-	color: #333;
+	color: #282828;
 	background-color: rgba(255, 255, 255, 0.8);
 	display: block;
 	font-weight: bold;
 	width: 100%;
-	padding: 10px;
-	transition: border-color 0.3s, box-shadow 0.3s;
+	padding: 6px;
+	transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
 	margin-top: 5px;
 	font-size: 1.1em;
 
 	&:focus {
-		border-color: var(--secondary-color);
-		box-shadow: 0 0 5px var(--secondary-color);
+		border-color: var(--primary-color);
+		box-shadow: 0 0 5px var(--primary-color);
+		background-color: rgba(255, 255, 255, 0.3);
 		outline: none;
 	}
 }
@@ -41,6 +42,10 @@ form {
 	font-size: 0.9em;
 	margin-top: -10px;
 	position: absolute;
+
+	&.below {
+		margin-top: 5px;
+	}
 }
 
 #submit-button {

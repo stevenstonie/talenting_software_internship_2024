@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class MainPageComponent {
   navigateTo(url: string) {
-    window.open(url, '_blank');
+    window.location.href = url;
   }
 }
 

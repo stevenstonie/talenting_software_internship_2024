@@ -8,7 +8,7 @@
 			<div *ngIf="name?.errors?.['required']" class="error-message">name is required.</div>
 			<div *ngIf="name?.errors?.['minlength']" class="error-message">name must be at least 3 characters long.
 			</div>
-			<div *ngIf="name?.errors?.['pattern']" class="error-message">name must contain only letters.</div>
+			<div *ngIf="name?.errors?.['pattern']" class="error-message below">name must contain only letters.</div>
 		</div>
 	</div>
 
@@ -37,7 +37,7 @@
 		<div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
 			<div *ngIf="password?.errors?.['minlength']" class="error-message">password must be at least 8 characters
 				long.</div>
-			<div *ngIf="password?.errors?.['pattern']" class="error-message">password must contain at least one
+			<div *ngIf="password?.errors?.['pattern']" class="error-message below">password must contain at least one
 				lowercase letter, one uppercase letter and one digit.</div>
 		</div>
 	</div>
@@ -50,7 +50,7 @@
 			<div *ngIf="passwordConfirmed?.errors?.['required']" class="error-message">password confirmation is
 				required.
 			</div>
-			<div *ngIf="passwordConfirmed?.errors?.['notMatching']" class="error-message">passwords do not
+			<div *ngIf="passwordConfirmed?.errors?.['notMatching']" class="error-message below">passwords do not
 				match.</div>
 		</div>
 	</div>

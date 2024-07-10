@@ -13,8 +13,8 @@ export class RegistrationFormComponent implements OnInit {
     this.registrationForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z\s]+$/)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/)]],
       passwordConfirmed: ['', [Validators.required]]
     }, {
       validators: this.passwordMatchingChecker as ValidatorFn
