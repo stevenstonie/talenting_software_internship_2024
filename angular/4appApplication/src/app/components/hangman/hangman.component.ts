@@ -7,7 +7,12 @@ import { HangmanPipe } from 'src/app/pipes/hangman.pipe';
   styleUrls: ['./hangman.component.scss']
 })
 export class HangmanComponent {
-  words: string[] = ['apple', 'banana', 'cherry', 'date', 'fig', 'grape', 'honeydew', 'lemon', 'mango', 'orange', 'peach', 'raspberry', 'tangerine', 'watermelon', 'oak'];
+  words: string[] = [
+    'apple', 'banana', 'beach', 'cherry', 'clown', 'date', 'fig', 'flower',
+    'grape', 'guitar', 'honeydew', 'island', 'jungle', 'kitten', 'lemon',
+    'lemon', 'mango', 'monkey', 'oak', 'orange', 'peach', 'raspberry',
+    'tangerine', 'watermelon'
+  ];
   selectedWord: string | null = null;
   rightGuesses: string[] = [];
   wrongGuesses: string[] = [];
@@ -24,24 +29,51 @@ export class HangmanComponent {
   }
 
   guessLetter(letter: string) {
+    if (!this.selectedWord) {
+      this.printSelectedWordIsNullError();
+      return;
+    }
+
     letter = letter.toLowerCase();
 
-    if (this.selectedWord?.indexOf(letter) === -1) {
-      if (!this.wrongGuesses.includes(letter)) {
-        this.wrongGuesses.push(letter);
-      }
-      if (this.wrongGuesses.length >= this.maxIncorrectGuesses) {
-        alert('GAME OVER! YOUUUU LOSEEEE!... the word was ' + this.selectedWord);
-        this.exitGame();
-      }
+    if (this.selectedWord.indexOf(letter) === -1) {
+      this.letterIsWrong(letter);
     } else {
-      if (!this.rightGuesses.includes(letter)) {
-        this.rightGuesses.push(letter);
+      this.letterIsRight(letter);
+    }
+  }
+
+  letterIsWrong(letter: string) {
+    if (!this.wrongGuesses.includes(letter)) {
+      this.wrongGuesses.push(letter);
+    }
+    if (this.wrongGuesses.length >= this.maxIncorrectGuesses) {
+      alert('GAME OVER! YOUUUU LOSEEEE!... the word was ' + this.selectedWord);
+      this.exitGame();
+    }
+  }
+
+  letterIsRight(letter: string) {
+    if (!this.selectedWord) {
+      this.printSelectedWordIsNullError();
+      return;
+    }
+
+    if (!this.rightGuesses.includes(letter)) {
+      this.rightGuesses.push(letter);
+    }
+
+    let allLettersGuessed = true;
+    for (const element of this.selectedWord) {
+      if (!this.rightGuesses.includes(element)) {
+        allLettersGuessed = false;
+        break;
       }
-      if (this.rightGuesses.length === this.selectedWord?.length) {
-        alert('Winner winner!!!!! bazinga... the word was ' + this.selectedWord);
-        this.exitGame();
-      }
+    }
+
+    if (allLettersGuessed) {
+      alert('Winner winner!!!!! bazinga... the word was ' + this.selectedWord);
+      this.exitGame();
     }
   }
 
@@ -51,5 +83,9 @@ export class HangmanComponent {
 
   exitGame() {
     this.selectedWord = null;
+  }
+
+  printSelectedWordIsNullError(): void {
+    console.error('selectedWord is null!!!');
   }
 }
