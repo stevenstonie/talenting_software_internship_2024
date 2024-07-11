@@ -5,7 +5,6 @@ import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/cor
 })
 export class HangmanDisplayDirective implements OnChanges {
   @Input() wrongGuesses: number = 0;
-
   private bodyPartNames: string[] = [
     'head.png',
     'torso.png',
@@ -14,6 +13,7 @@ export class HangmanDisplayDirective implements OnChanges {
     'left_leg.png',
     'right_leg.png'
   ];
+  bodyParts = this.elemRef.nativeElement.querySelectorAll('.body-part');
 
   constructor(private elemRef: ElementRef, private renderer: Renderer2) { }
 
@@ -22,15 +22,14 @@ export class HangmanDisplayDirective implements OnChanges {
   }
 
   private updateHangmanDisplay() {
-    const parts = this.elemRef.nativeElement.querySelectorAll('.body-part');
+    if (this.wrongGuesses > 0 && this.wrongGuesses <= this.bodyParts.length) {
+      const currentPart = this.bodyParts[this.wrongGuesses - 1];
 
-    parts.forEach((part: HTMLImageElement, index: number) => {
-      if (index < this.wrongGuesses) {
-        this.renderer.setStyle(part, 'display', 'block');
-        this.renderer.setAttribute(part, 'src', `assets/images/hangman/body_parts/${this.bodyPartNames[index]}`);
-      } else {
-        this.renderer.setStyle(part, 'display', 'none');
+      const currentPartDisplay = window.getComputedStyle(currentPart).display;
+      if (currentPartDisplay === 'none') {
+        this.renderer.setStyle(currentPart, 'display', 'block');
       }
-    });
+    }
   }
+
 }
