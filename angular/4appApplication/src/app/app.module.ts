@@ -12,6 +12,7 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { HomeButtonComponent } from './components/home-button/home-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HangmanComponent } from './components/hangman/hangman.component';
+import { HangmanPipe } from './pipes/hangman.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HangmanComponent } from './components/hangman/hangman.component';
     NotFoundComponent,
     RegistrationFormComponent,
     HomeButtonComponent,
-    HangmanComponent
+    HangmanComponent,
+    HangmanPipe
   ],
   imports: [
     BrowserModule,

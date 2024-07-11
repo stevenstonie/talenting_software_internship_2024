@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HangmanPipe } from 'src/app/pipes/hangman.pipe';
 
 @Component({
   selector: 'app-hangman',
@@ -6,12 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./hangman.component.scss']
 })
 export class HangmanComponent {
-  words: string[] = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'peach', 'quince', 'raspberry', 'strawberry', 'tangerine', 'watermelon', 'zucchini', 'acorn', 'birch', 'cedar', 'dogwood', 'elm', 'fir', 'hawthorn', 'ivy', 'juniper', 'maple', 'oak', 'pine', 'quaking', 'redwood', 'spruce', 'tulip', 'willow', 'yucca', 'zinnia', 'anemone', 'begonia', 'camellia', 'dahlia', 'echinacea', 'foxglove', 'gardenia', 'hibiscus', 'iris', 'jasmine'];
+  words: string[] = ['apple', 'banana', 'cherry', 'date', 'fig', 'grape', 'honeydew', 'lemon', 'mango', 'orange', 'peach', 'raspberry', 'tangerine', 'watermelon', 'oak'];
   selectedWord: string | null = null;
   rightGuesses: string[] = [];
   wrongGuesses: string[] = [];
   maxIncorrectGuesses: number = 6;
+  private _hangmanPipe: HangmanPipe = new HangmanPipe();
 
+  constructor() { }
 
   startGame() {
     this.selectedWord = this.words[Math.floor(Math.random() * this.words.length)];
@@ -21,11 +24,12 @@ export class HangmanComponent {
   }
 
   guessLetter(letter: string) {
-    console.log(this.wrongGuesses.join(", "));
     letter = letter.toLowerCase();
 
     if (this.selectedWord?.indexOf(letter) === -1) {
-      this.wrongGuesses.push(letter);
+      if (!this.wrongGuesses.includes(letter)) {
+        this.wrongGuesses.push(letter);
+      }
       if (this.wrongGuesses.length >= this.maxIncorrectGuesses) {
         alert('GAME OVER! YOUUUU LOSEEEE!... the word was ' + this.selectedWord);
         this.exitGame();
@@ -41,18 +45,8 @@ export class HangmanComponent {
     }
   }
 
-  wordToDisplayOnScreen() : string {
-    let wordToDisplay = '';
-
-    for (let i = 0; i < this.selectedWord?.length!; i++) {
-      if (this.rightGuesses.includes(this.selectedWord![i])) {
-        wordToDisplay += this.selectedWord![i];
-      } else {
-        wordToDisplay += '_';
-      }
-    }
-
-    return wordToDisplay;
+  get wordToDisplay(): string {
+    return this._hangmanPipe.transform(this.selectedWord, this.rightGuesses);
   }
 
   exitGame() {
