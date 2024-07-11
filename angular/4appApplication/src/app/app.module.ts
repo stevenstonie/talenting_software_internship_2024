@@ -13,6 +13,7 @@ import { HomeButtonComponent } from './components/home-button/home-button.compon
 import { MatIconModule } from '@angular/material/icon';
 import { HangmanComponent } from './components/hangman/hangman.component';
 import { HangmanPipe } from './pipes/hangman.pipe';
+import { HangmanDisplayDirective } from './directives/hangman-display.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HangmanPipe } from './pipes/hangman.pipe';
     RegistrationFormComponent,
     HomeButtonComponent,
     HangmanComponent,
-    HangmanPipe
+    HangmanPipe,
+    HangmanDisplayDirective
   ],
   imports: [
     BrowserModule,

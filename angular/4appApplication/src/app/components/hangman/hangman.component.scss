@@ -46,7 +46,15 @@
 
 #letters-wrong {
 	position: absolute;
-	left: 50px;
-	top: 40%;
+	left: 10vw;
+	top: 10%;
 	font-size: large;
+}
+
+#hangman-container {
+	position: absolute;
+	left: 10vw;
+	top: 20%;
+	height: 400px;
+	width: 15vw;
 }
