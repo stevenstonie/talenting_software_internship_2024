@@ -1,91 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HangmanPipe } from 'src/app/pipes/hangman.pipe';
+import { HangmanService } from '../../services/hangman.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hangman',
   templateUrl: './hangman.component.html',
   styleUrls: ['./hangman.component.scss']
 })
-export class HangmanComponent {
-  words: string[] = [
-    'apple', 'banana', 'beach', 'cherry', 'clown', 'date', 'fig', 'flower',
-    'grape', 'guitar', 'honeydew', 'island', 'jungle', 'kitten', 'lemon',
-    'lemon', 'mango', 'monkey', 'oak', 'orange', 'peach', 'raspberry',
-    'tangerine', 'watermelon'
-  ];
+export class HangmanComponent implements OnInit, OnDestroy {
   selectedWord: string | null = null;
-  rightGuesses: string[] = [];
   wrongGuesses: string[] = [];
-  maxIncorrectGuesses: number = 6;
+  wordToDisplay: string = '';
+
+  private gameState$: Subscription = new Subscription();
   private _hangmanPipe: HangmanPipe = new HangmanPipe();
 
-  constructor() { }
+  constructor(private hangmanService: HangmanService) { }
 
-  startGame() {
-    this.selectedWord = this.words[Math.floor(Math.random() * this.words.length)];
+  ngOnInit(): void {
+    this.gameState$ = this.hangmanService.gameState$.subscribe(state => {
+      this.selectedWord = state.selectedWord;
+      this.wrongGuesses = state.wrongGuesses;
+      this.wordToDisplay = this._hangmanPipe.transform(this.selectedWord, state.rightGuesses);
 
-    this.rightGuesses = [];
-    this.wrongGuesses = [];
+      if (state.gameWon) {
+        alert('Winner winner!!!!! bazinga... the word was ' + this.selectedWord);
+        this.exitGame();
+      }
+
+      if (state.gameLost) {
+        alert('GAME OVER! YOUUUU LOSEEEE!... the word was ' + this.selectedWord);
+        this.exitGame();
+      }
+    });
   }
 
   guessLetter(letter: string) {
-    if (!this.selectedWord) {
-      this.printSelectedWordIsNullError();
-      return;
-    }
-
-    letter = letter.toLowerCase();
-
-    if (this.selectedWord.indexOf(letter) === -1) {
-      this.letterIsWrong(letter);
-    } else {
-      this.letterIsRight(letter);
-    }
+    this.hangmanService.guessLetter(letter);
   }
 
-  letterIsWrong(letter: string) {
-    if (!this.wrongGuesses.includes(letter)) {
-      this.wrongGuesses.push(letter);
-    }
-    if (this.wrongGuesses.length >= this.maxIncorrectGuesses) {
-      alert('GAME OVER! YOUUUU LOSEEEE!... the word was ' + this.selectedWord);
-      this.exitGame();
-    }
+  startNewGame() {
+    this.hangmanService.startNewGame();
   }
 
-  letterIsRight(letter: string) {
-    if (!this.selectedWord) {
-      this.printSelectedWordIsNullError();
-      return;
-    }
-
-    if (!this.rightGuesses.includes(letter)) {
-      this.rightGuesses.push(letter);
-    }
-
-    let allLettersGuessed = true;
-    for (const element of this.selectedWord) {
-      if (!this.rightGuesses.includes(element)) {
-        allLettersGuessed = false;
-        break;
-      }
-    }
-
-    if (allLettersGuessed) {
-      alert('Winner winner!!!!! bazinga... the word was ' + this.selectedWord);
-      this.exitGame();
-    }
-  }
-
-  get wordToDisplay(): string {
-    return this._hangmanPipe.transform(this.selectedWord, this.rightGuesses);
+  getMaxIncorrectGuesses() {
+    return this.hangmanService.getMaxIncorrectGuesses();
   }
 
   exitGame() {
-    this.selectedWord = null;
+    this.hangmanService.exitGame();
   }
 
-  printSelectedWordIsNullError(): void {
-    console.error('selectedWord is null!!!');
+  ngOnDestroy(): void {
+    this.gameState$.unsubscribe();
   }
 }
