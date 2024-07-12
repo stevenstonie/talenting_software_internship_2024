@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HangmanPipe } from 'src/app/pipes/hangman.pipe';
 import { HangmanService } from '../../services/hangman.service';
 import { Subscription } from 'rxjs';
+import { HangmanWordToDisplayPipe } from 'src/app/pipes/hangman-word-to-display.pipe';
 
 @Component({
   selector: 'app-hangman',
@@ -14,7 +14,7 @@ export class HangmanComponent implements OnInit, OnDestroy {
   wordToDisplay: string = '';
 
   private gameState$: Subscription = new Subscription();
-  private _hangmanPipe: HangmanPipe = new HangmanPipe();
+  private _hangmanPipe: HangmanWordToDisplayPipe = new HangmanWordToDisplayPipe();
 
   constructor(private hangmanService: HangmanService) { }
 

@@ -12,8 +12,8 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { HomeButtonComponent } from './components/home-button/home-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HangmanComponent } from './components/hangman/hangman.component';
-import { HangmanPipe } from './pipes/hangman.pipe';
-import { HangmanDisplayDirective } from './directives/hangman-display.directive';
+import { HangmanDirective } from './directives/hangman.directive';
+import { HangmanWordToDisplayPipe } from './pipes/hangman-word-to-display.pipe';
 
 @NgModule({
   declarations: [
@@ -23,8 +23,8 @@ import { HangmanDisplayDirective } from './directives/hangman-display.directive'
     RegistrationFormComponent,
     HomeButtonComponent,
     HangmanComponent,
-    HangmanPipe,
-    HangmanDisplayDirective
+    HangmanDirective,
+    HangmanWordToDisplayPipe
   ],
   imports: [
     BrowserModule,

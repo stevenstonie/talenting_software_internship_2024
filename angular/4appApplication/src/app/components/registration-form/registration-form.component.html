@@ -32,7 +32,7 @@
 			placeholder="should contain only digits">
 		<div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)">
 			<p *ngIf="phoneNumber?.errors?.['required']" class="error-message">phone number is required.</p>
-			<p *ngIf="phoneNumber?.errors?.['pattern']" class="error-message">phone number must contain only numbers.
+			<p *ngIf="phoneNumber?.errors?.['pattern']" class="error-message">phone number must only contain digits.
 			</p>
 		</div>
 	</div>

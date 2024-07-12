@@ -12,7 +12,7 @@
 	<input #letterInput id="letter-input-field" (keyup.enter)="guessLetter(letterInput.value); letterInput.value=''"
 		maxlength="1">
 
-	<div id="hangman-container" appHangmanDisplay [wrongGuesses]="wrongGuesses.length">
+	<div id="hangman-container" appHangman [wrongGuesses]="wrongGuesses.length" [letterInputElem]="letterInput">
 		<img src="assets/images/hangman/pole.png" alt="hangman pole">
 		<img class="body-part" src="assets/images/hangman/body_parts/head.png" alt="head part of the hangman">
 		<img class="body-part" src="assets/images/hangman/body_parts/torso.png" alt="torso part of the hangman">

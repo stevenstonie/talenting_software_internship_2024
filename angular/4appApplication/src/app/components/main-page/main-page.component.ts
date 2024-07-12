@@ -10,5 +10,3 @@ export class MainPageComponent {
     window.location.href = url;
   }
 }
-
-// TODO: create a component or smth for the button that returns the user to main-page

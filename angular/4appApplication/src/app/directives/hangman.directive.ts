@@ -1,10 +1,12 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appHangmanDisplay]'
+  selector: '[appHangman]'
 })
-export class HangmanDisplayDirective implements OnChanges, AfterViewInit {
+export class HangmanDirective implements OnChanges, AfterViewInit {
   @Input() wrongGuesses: number = 0;
+  @Input() letterInputElem!: HTMLInputElement;
+
   private bodyPartNames: string[] = [
     'head.png',
     'torso.png',
@@ -34,8 +36,32 @@ export class HangmanDisplayDirective implements OnChanges, AfterViewInit {
       const currentPartDisplay = window.getComputedStyle(currentPart).display;
       if (currentPartDisplay.includes('none')) {
         this.renderer.setStyle(currentPart, 'display', 'block');
+
+        this.flashRed();
       }
     }
+  }
+
+  private flashRed() {
+    if (!this.letterInputElem) return;
+
+    this.renderer.addClass(this.letterInputElem, 'flash-red');
+
+    const computedStyle = window.getComputedStyle(this.letterInputElem);
+    const animationDuration = computedStyle.getPropertyValue('animation-duration');
+    const durationInMs = this.parseDurationToMs(animationDuration) - 50;
+
+    setTimeout(() => {
+      this.renderer.removeClass(this.letterInputElem, 'flash-red');
+    }, durationInMs);
+  }
+
+  private parseDurationToMs(duration: string): number {
+    const match = RegExp(/(\d+(\.\d+)?)s/).exec(duration);
+    if (match) {
+      return parseFloat(match[1]) * 1000;
+    }
+    return 0;
   }
 
 }

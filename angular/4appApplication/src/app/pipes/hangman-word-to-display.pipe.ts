@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'hangman'
+  name: 'hangmanWordToDisplay'
 })
-export class HangmanPipe implements PipeTransform {
+export class HangmanWordToDisplayPipe implements PipeTransform {
 
   transform(initialWord: string | null, lettersToDisplay: string[]): string {
     if (!initialWord) return '';

@@ -36,6 +36,26 @@
 	}
 }
 
+.flash-red {
+	animation: flashRed 0.4s;
+	background: linear-gradient(to top, rgba(255, 0, 0, 1), rgba(255, 0, 0, 0));
+
+	@keyframes flashRed {
+
+		0% {
+			opacity: 0.3;
+		}
+
+		45% {
+			opacity: 1;
+		}
+
+		100% {
+			opacity: 0;
+		}
+	}
+}
+
 #word-displayed {
 	position: absolute;
 	left: 50%;
