@@ -31,7 +31,7 @@ export class RegistrationFormComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      alert(JSON.stringify(this.registrationForm.value));
+      alert('form submitted successfully.');
     }
   }
 

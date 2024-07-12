@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="form-group">
-		<label for="phoneNumber">phone number: </label>
+		<label for="phone-number">phone number: </label>
 		<input id="phone-number" class="user-input" formControlName="phoneNumber"
 			placeholder="should contain only digits">
 		<div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)">
@@ -54,7 +54,7 @@
 	</div>
 
 	<div class="form-group">
-		<label for="passwordConfirmed">re-enter password: </label>
+		<label for="password-confirmed">re-enter password: </label>
 		<input id="password-confirmed" class="user-input" type="password" formControlName="passwordConfirmed"
 			placeholder="re-enter the password above">
 		<div *ngIf="passwordConfirmed?.dirty || passwordConfirmed?.touched">

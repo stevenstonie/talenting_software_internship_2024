@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HangmanComponent } from './components/hangman/hangman.component';
 import { HangmanDirective } from './directives/hangman.directive';
 import { HangmanWordToDisplayPipe } from './pipes/hangman-word-to-display.pipe';
+import { ConfirmationWindowComponent } from './components/confirmation-window/confirmation-window.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HangmanWordToDisplayPipe } from './pipes/hangman-word-to-display.pipe';
     HomeButtonComponent,
     HangmanComponent,
     HangmanDirective,
-    HangmanWordToDisplayPipe
+    HangmanWordToDisplayPipe,
+    ConfirmationWindowComponent
   ],
   imports: [
     BrowserModule,
