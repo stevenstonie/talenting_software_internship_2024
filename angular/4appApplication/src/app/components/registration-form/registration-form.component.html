@@ -68,4 +68,7 @@
 
 	<button id="submit-button" class="primary-button" type="submit"
 		[disabled]="registrationForm.invalid">submit</button>
+
+	<app-dialog-window *ngIf="isDialogWindowOpened" [title]="'form submitted successfully'" [message]="'the registration form has been submitted successfully. you can exit now'"
+		(closeWindow)="closeDialogWindow()"></app-dialog-window>
 </form>

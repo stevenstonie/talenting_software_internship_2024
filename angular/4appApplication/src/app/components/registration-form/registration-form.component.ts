@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 export class RegistrationFormComponent {
   registrationForm: FormGroup;
   arePasswordsMatching: boolean = false;
+  isDialogWindowOpened: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
     this.registrationForm = this.formBuilder.group({
@@ -31,8 +32,12 @@ export class RegistrationFormComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      alert('form submitted successfully.');
+      this.isDialogWindowOpened = true;
     }
+  }
+
+  closeDialogWindow() {
+    this.isDialogWindowOpened = false;
   }
 
   get name() {
