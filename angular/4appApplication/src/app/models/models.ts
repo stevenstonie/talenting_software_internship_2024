@@ -1,7 +1,14 @@
-export interface TvProduct {
+export interface Show {
 	id: number;
 	background_image_path: string;
 	name: string;
+	type: ShowType;
+}
+
+export enum ShowType {
+	ANIME = 'ANIME',
+	TV_SHOW = 'TV SHOW',
+	MOVIE = 'MOVIE',
 }
 
 export interface DialogWindow {

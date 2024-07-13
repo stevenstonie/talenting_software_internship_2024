@@ -1,1 +1,14 @@
-<p>show-list works!</p>
+<app-home-button></app-home-button>
+
+<ul id="show-list">
+	<li class="show-container" *ngFor="let show of showList">
+		<div class="show-cover">
+			<img *ngIf="show.background_image_path" src="{{show.background_image_path}}" />
+			<p *ngIf="!show.background_image_path">no image</p>
+		</div>
+		<div class="show-description">
+			<p class="show-name">{{ show.name }}</p>
+			<p class="show-type">({{ show.type }})</p>
+		</div>
+	</li>
+</ul>
