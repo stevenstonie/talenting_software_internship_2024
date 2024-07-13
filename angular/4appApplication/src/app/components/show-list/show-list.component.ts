@@ -13,21 +13,24 @@ export class ShowListComponent {
     this.showList = [
       {
         id: 1,
-        background_image_path: 'assets/shows/show_images/hannibal-cover.jpg',
+        cover_image_path: 'assets/shows/show_images/hannibal-cover.jpg',
         name: 'Hannibal',
-        type: ShowType.TV_SHOW
+        type: ShowType.TV_SHOW,
+        rating: 8
       },
       {
         id: 2,
-        background_image_path: 'assets/shows/show_images/interstellar-cover.jpg',
+        cover_image_path: 'assets/shows/show_images/interstellar-cover.jpg',
         name: 'Interstellar',
-        type: ShowType.MOVIE
+        type: ShowType.MOVIE,
+        rating: 9
       },
       {
         id: 3,
-        background_image_path: 'assets/shows/show_images/bojack-horseman-cover.jpg',
+        cover_image_path: 'assets/shows/show_images/bojack-horseman-cover.jpg',
         name: 'Bojack Horseman',
-        type: ShowType.TV_SHOW
+        type: ShowType.TV_SHOW,
+        rating: 9
       }];
   }
 }

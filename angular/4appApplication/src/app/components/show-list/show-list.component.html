@@ -1,14 +1,24 @@
 <app-home-button></app-home-button>
 
+<h2 id="title">Movies, TV Shows, and other media you'd expect</h2>
+
 <ul id="show-list">
 	<li class="show-container" *ngFor="let show of showList">
 		<div class="show-cover">
-			<img *ngIf="show.background_image_path" src="{{show.background_image_path}}" />
-			<p *ngIf="!show.background_image_path">no image</p>
+			<img *ngIf="show.cover_image_path" src="{{show.cover_image_path}}" alt="a poster of {{show.name}}" />
+			<p *ngIf="!show.cover_image_path">no poster for {{show.name}}</p>
 		</div>
 		<div class="show-description">
 			<p class="show-name">{{ show.name }}</p>
-			<p class="show-type">({{ show.type }})</p>
+			<p class="show-type">({{ show.type }}) |
+				<span><mat-icon style="vertical-align: middle; font-size: 1.5em; color: gold">star</mat-icon>
+					{{ show.rating }}
+				</span>
+			</p>
 		</div>
 	</li>
+
+	<button class="add-show-button primary-button">
+		<mat-icon>add</mat-icon>
+	</button>
 </ul>

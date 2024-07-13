@@ -1,8 +1,9 @@
 export interface Show {
 	id: number;
-	background_image_path: string;
+	cover_image_path: string;
 	name: string;
 	type: ShowType;
+	rating: number;
 }
 
 export enum ShowType {
