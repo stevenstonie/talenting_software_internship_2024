@@ -15,7 +15,7 @@ import { HangmanComponent } from './components/hangman/hangman.component';
 import { HangmanDirective } from './directives/hangman.directive';
 import { HangmanWordToDisplayPipe } from './pipes/hangman-word-to-display.pipe';
 import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
-import { MovieListComponent } from './components/movie-list/movie-list.component';
+import { ShowListComponent } from './components/show-list/show-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { MovieListComponent } from './components/movie-list/movie-list.component
     HangmanDirective,
     HangmanWordToDisplayPipe,
     DialogWindowComponent,
-    MovieListComponent
+    ShowListComponent
   ],
   imports: [
     BrowserModule,

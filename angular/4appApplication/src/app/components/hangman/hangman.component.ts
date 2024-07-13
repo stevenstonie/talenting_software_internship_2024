@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GameState, HangmanService } from '../../services/hangman.service';
 import { Subscription } from 'rxjs';
+import { DialogWindow, GameState } from 'src/app/models/models';
 import { HangmanWordToDisplayPipe } from 'src/app/pipes/hangman-word-to-display.pipe';
-import { DialogWindow } from '../dialog-window/dialog-window.component';
+import { HangmanService } from 'src/app/services/hangman.service';
 
 @Component({
   selector: 'app-hangman',

@@ -4,7 +4,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { HangmanComponent } from './components/hangman/hangman.component';
-import { MovieListComponent } from './components/movie-list/movie-list.component';
+import { ShowListComponent } from './components/show-list/show-list.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '404', component: NotFoundComponent },
   { path: 'registration-form', component: RegistrationFormComponent },
   { path: 'hangman', component: HangmanComponent },
-  { path: 'movie-list', component: MovieListComponent },
+  { path: 'show-list', component: ShowListComponent },
   { path: '**', redirectTo: '/404' }
 ];
 
