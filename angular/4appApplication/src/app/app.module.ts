@@ -15,6 +15,7 @@ import { HangmanComponent } from './components/hangman/hangman.component';
 import { HangmanDirective } from './directives/hangman.directive';
 import { HangmanWordToDisplayPipe } from './pipes/hangman-word-to-display.pipe';
 import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
+import { TicTacToeComponent } from './components/tic-tac-toe/tic-tac-toe.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DialogWindowComponent } from './components/dialog-window/dialog-window.
     HangmanComponent,
     HangmanDirective,
     HangmanWordToDisplayPipe,
-    DialogWindowComponent
+    DialogWindowComponent,
+    TicTacToeComponent
   ],
   imports: [
     BrowserModule,
