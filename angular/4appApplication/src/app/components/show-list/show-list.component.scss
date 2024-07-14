@@ -105,8 +105,13 @@
 			outline: none;
 		}
 
-		&::placeholder{
+		&::placeholder {
 			font-size: 0.8em;
 		}
+	}
+
+	#show-type-list {
+		display: flex;
+		justify-content: space-between;
 	}
 }

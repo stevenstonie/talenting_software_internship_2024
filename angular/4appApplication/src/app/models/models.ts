@@ -2,7 +2,7 @@ export interface Show {
 	id: number;
 	name: string;
 	cover_image_path: string | null;
-	type: ShowType;
+	type: ShowType | null;
 	rating: number;
 	more_details_redirect: string | null;
 }

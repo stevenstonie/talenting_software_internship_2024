@@ -27,18 +27,22 @@
 	<section id="add-show-window" *ngIf="isAddShowWindowOpened">
 		<p id="title" style="font-size: 1.3em; margin-bottom: 20px;">add a new show</p>
 
-		<input type="text" id="name" placeholder="give it a name" />
-		<input type="text" id="cover-image-path" placeholder="provide an url for the poster image" />
-		<input type="number" id="rating" placeholder="an initial rating" />
-		<div>
-			<button class="primary-button">TV SHOW</button>
-			<button class="primary-button">MOVIE</button>
-			<button class="primary-button">ANIME</button>
+		<input type="text" [(ngModel)]="showToAdd.name" id="name" placeholder="give it a name" />
+		<input type="text" [(ngModel)]="showToAdd.cover_image_path" id="cover-image-path"
+			placeholder="provide an url for the poster image" />
+		<label style="font-size: 0.7em">initial rating<input type="number" [(ngModel)]="showToAdd.rating" id="rating"
+				placeholder="an initial rating" /></label>
+		<div id="show-type-list">
+			<label><input type="radio" name="show-type" value="TV SHOW" [(ngModel)]="showToAdd.type" />TV SHOW</label>
+			<label><input type="radio" name="show-type" value="MOVIE" [(ngModel)]="showToAdd.type" />MOVIE</label>
+			<label><input type="radio" name="show-type" value="ANIME" [(ngModel)]="showToAdd.type" />ANIME</label>
 		</div>
-		<input type="text" id="name" placeholder="the url to the show page on imdb" />
+		<input type="text" [(ngModel)]="showToAdd.more_details_redirect" id="name"
+			placeholder="the url to the show page on imdb" />
 
 		<button class="primary-button" (click)="addShow()">submit</button>
 	</section>
 </ul>
 
-<app-dialog-window *ngIf="isDialogWindowOpened" [title]="'!!!'" [message]="'you will be redirected to another site'" (closeWindow)="navigateTo(null)"></app-dialog-window>
+<app-dialog-window *ngIf="isDialogWindowOpened" [title]="'!!!'" [message]="'you will be redirected to another site'"
+	(closeWindow)="navigateTo(null)"></app-dialog-window>
