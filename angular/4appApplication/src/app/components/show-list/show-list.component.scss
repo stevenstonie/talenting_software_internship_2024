@@ -10,7 +10,7 @@
 .show {
 	&-container {
 		width: 200px;
-		margin: 15px;
+		margin: 15px 30px;
 		overflow: hidden;
 		height: 350px;
 		border-radius: 5px;
@@ -60,10 +60,53 @@
 	}
 }
 
-.add-show-button {
+#add-show-button {
 	width: 50px;
 	height: 50px;
 	position: absolute;
 	top: 15px;
 	right: 15px;
+}
+
+#add-show-window {
+	position: absolute;
+	right: 90px;
+	top: 15px;
+	width: 250px;
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	border-radius: 10px;
+	border: 2px solid black;
+	background: linear-gradient(to right, var(--third-color), var(--secondary-color));
+
+	* {
+		margin: 5px;
+	}
+
+	input {
+		border-radius: 10px;
+		box-sizing: border-box;
+		color: #282828;
+		background-color: rgba(255, 255, 255, 0.8);
+		display: block;
+		font-weight: bold;
+		width: 100%;
+		padding: 3px;
+		transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+		margin-top: 5px;
+		margin-bottom: 10px;
+
+		&:focus {
+			border-color: var(--primary-color);
+			box-shadow: 0 0 5px var(--primary-color);
+			background-color: rgba(255, 255, 255, 0.1);
+			outline: none;
+		}
+
+		&::placeholder{
+			font-size: 0.8em;
+		}
+	}
 }

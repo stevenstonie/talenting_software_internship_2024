@@ -1,9 +1,10 @@
 export interface Show {
 	id: number;
-	cover_image_path: string;
 	name: string;
+	cover_image_path: string | null;
 	type: ShowType;
 	rating: number;
+	more_details_redirect: string | null;
 }
 
 export enum ShowType {
