@@ -26,11 +26,8 @@
 }
 
 .image-container {
-	height: auto;
-	overflow: hidden;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
+	position: relative;
+	padding: 15px;
 }
 
 .grid {

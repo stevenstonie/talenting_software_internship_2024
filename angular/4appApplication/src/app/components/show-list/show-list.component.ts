@@ -42,7 +42,7 @@ export class ShowListComponent {
   }
 
   addShowToStorage() {
-    this.showList.push(this.showToAdd);
+    this.showList.unshift(this.showToAdd);
 
     this.saveShowsToStorage(this.showList);
   }
@@ -58,8 +58,6 @@ export class ShowListComponent {
   }
 
   removeShow(show: Show) {
-    console.log('show to remove: ', show);
-
     const index = this.showList.indexOf(show);
     this.showList.splice(index, 1);
     this.saveShowsToStorage(this.showList);
