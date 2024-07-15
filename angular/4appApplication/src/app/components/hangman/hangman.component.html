@@ -10,7 +10,7 @@
 	<p id="letters-wrong">wrong letters guessed: <br>{{wrongGuesses.join(", ")}} ({{wrongGuesses.length}} /
 		{{getMaxIncorrectGuesses()}})</p>
 	<input #letterInput id="letter-input-field" (keyup.enter)="guessLetter(letterInput.value); letterInput.value=''"
-		maxlength="1">
+		maxlength="1" autocomplete="off">
 
 	<div id="hangman-container" appHangman [wrongGuesses]="wrongGuesses.length" [letterInputElem]="letterInput">
 		<img src="assets/images/hangman/pole.png" alt="hangman pole">

@@ -16,12 +16,12 @@
 
 <div *ngIf="!gameStarted">
 	<div id="gamemode-selection">
-		<p [class.selected-gamemode]="!playsVsComputer">play with yourself (🤨)</p>
+		<p [class.selected-gamemode]="!playsVsComputer">play with yourself (<span style="font-size:.85em;">🤨</span>)</p>
 		<label class="switch">
 			<input type="checkbox" [(ngModel)]="playsVsComputer">
 			<span class="slider round"></span>
 		</label>
-		<p [class.selected-gamemode]="playsVsComputer">play vs computer</p>
+		<p [class.selected-gamemode]="playsVsComputer">play vs computer (to implement)</p>
 	</div>
 
 	<button id="start-game-button" class="primary-button" (click)="startNewGame()">start new game</button>
