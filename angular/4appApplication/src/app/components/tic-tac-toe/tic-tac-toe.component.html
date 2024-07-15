@@ -1,13 +1,32 @@
 <app-home-button></app-home-button>
 
-<section id="game-table">
-	<div class="square">1</div>
-	<div class="square">2</div>
-	<div class="square">3</div>
-	<div class="square">4</div>
-	<div class="square">5</div>
-	<div class="square">6</div>
-	<div class="square">7</div>
-	<div class="square">8</div>
-	<div class="square">9</div>
-</section>
+<p id="title">Tic-Tac-Toe</p>
+
+<div *ngIf="gameStarted">
+	<div id="game-table">
+		<div class="square">1</div>
+		<div class="square">2</div>
+		<div class="square">3</div>
+		<div class="square">4</div>
+		<div class="square">5</div>
+		<div class="square">6</div>
+		<div class="square">7</div>
+		<div class="square">8</div>
+		<div class="square">9</div>
+	</div>
+
+	<button id="exit-game-button" class="primary-button" (click)="exitGame()"><mat-icon>exit_to_app</mat-icon></button>
+</div>
+
+<div *ngIf="!gameStarted">
+	<div id="gamemode-selection">
+		<p [class.selected-gamemode]="!playsVsComputer">play with yourself (🤨)</p>
+		<label class="switch">
+			<input type="checkbox" [(ngModel)]="playsVsComputer">
+			<span class="slider round"></span>
+		</label>
+		<p [class.selected-gamemode]="playsVsComputer">play vs computer</p>
+	</div>
+
+	<button id="start-game-button" class="primary-button" (click)="startNewGame()">start new game</button>
+</div>

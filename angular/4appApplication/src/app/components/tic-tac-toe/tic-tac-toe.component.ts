@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./tic-tac-toe.component.scss']
 })
 export class TicTacToeComponent {
+  gameStarted = false;
+  playsVsComputer = false;
 
+
+  startNewGame() {
+    this.gameStarted = true;
+  }
+
+  exitGame() {
+    this.gameStarted = false;
+  }
 }
