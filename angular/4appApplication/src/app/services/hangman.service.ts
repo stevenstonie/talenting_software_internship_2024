@@ -50,6 +50,8 @@ export class HangmanService {
       return;
     }
 
+    letter = letter.toLowerCase();
+
     if (this.rightGuesses.includes(letter) || this.wrongGuesses.includes(letter)) {
       return;
     }
