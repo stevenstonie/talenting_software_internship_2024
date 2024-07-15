@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { GameState } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -112,14 +113,4 @@ export class HangmanService {
   private printSelectedWordIsNullError(): void {
     console.error('selectedWord is null!!!');
   }
-}
-
-export interface GameState {
-  selectedWord: string | null;
-  rightGuesses: string[];
-  wrongGuesses: string[];
-  incorrectGuesses: number;
-  maxIncorrectGuesses: number;
-  gameWon: boolean;
-  gameLost: boolean;
 }

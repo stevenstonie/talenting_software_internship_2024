@@ -14,9 +14,3 @@ export class DialogWindowComponent {
     this.closeWindow.emit();
   }
 }
-
-export interface DialogWindow {
-  title: string;
-  message: string;
-  isDialogWindowOpened: boolean
-}

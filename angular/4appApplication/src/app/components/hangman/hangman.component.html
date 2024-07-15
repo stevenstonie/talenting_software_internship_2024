@@ -21,7 +21,7 @@
 		<img class="body-part" src="assets/images/hangman/body_parts/left_arm.png" alt="left arm part of the hangman">
 		<img class="body-part" src="assets/images/hangman/body_parts/right_arm.png" alt="right arm part of the hangman">
 	</div>
-	<button id="exit-game-button" class="primary-button" (click)="exitGame()">exit game</button>
+	<button id="exit-game-button" class="primary-button" (click)="exitGame()"><mat-icon>exit_to_app</mat-icon></button>
 
 	<app-dialog-window *ngIf="DialogWindow.isDialogWindowOpened" [title]="DialogWindow.title"
 		[message]="DialogWindow.message" (closeWindow)="exitGame()">

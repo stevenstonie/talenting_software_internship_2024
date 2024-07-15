@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GameState, HangmanService } from '../../services/hangman.service';
 import { Subscription } from 'rxjs';
+import { DialogWindow, GameState } from 'src/app/models/models';
 import { HangmanWordToDisplayPipe } from 'src/app/pipes/hangman-word-to-display.pipe';
-import { DialogWindow } from '../dialog-window/dialog-window.component';
+import { HangmanService } from 'src/app/services/hangman.service';
 
 @Component({
   selector: 'app-hangman',
@@ -60,17 +60,17 @@ export class HangmanComponent implements OnInit, OnDestroy {
     if (state.gameWon) {
 
       if (state.incorrectGuesses === 0) {
-        this.DialogWindow.title = 'Perfect score';
-        this.DialogWindow.message = 'woah nice. you did it with 0 mistakes.. the word was ' + this.selectedWord;
+        this.DialogWindow.title = 'Flawless';
+        this.DialogWindow.message = 'woah, you did it with 0 mistakes. the word was: ' + this.selectedWord;
       } else {
         this.DialogWindow.title = 'Winner';
-        this.DialogWindow.message = 'bazinga... the word was ' + this.selectedWord;
+        this.DialogWindow.message = 'bazinga. the word was: ' + this.selectedWord;
       }
     }
 
     if (state.gameLost) {
-      this.DialogWindow.title = 'you lost..';
-      this.DialogWindow.message = 'the word was ' + this.selectedWord + '. better luck next time';
+      this.DialogWindow.title = 'You lost..';
+      this.DialogWindow.message = 'the word was: ' + this.selectedWord + '. better luck next time';
     }
   }
 
