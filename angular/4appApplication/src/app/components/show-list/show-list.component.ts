@@ -62,4 +62,16 @@ export class ShowListComponent {
     localStorage.setItem('shows', jsonShowData);
   }
 
+  removeShow(show: Show) {
+    console.log('show to remove: ', show);
+
+    const index = this.showList.indexOf(show);
+    this.showList.splice(index, 1);
+    this.saveShowsToStorage(this.showList);
+  }
+
+  doNothing() {
+
+  }
+
 }

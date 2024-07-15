@@ -24,6 +24,20 @@
 			color: var(--primary-color);
 			transition-duration: 0.3s;
 		}
+
+		button {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+
+			&:hover {
+				color: red;
+				transition-duration: 0.3s;
+			}
+		}
 	}
 
 	&-cover {

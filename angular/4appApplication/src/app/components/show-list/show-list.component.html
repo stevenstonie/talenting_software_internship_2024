@@ -3,13 +3,16 @@
 <h2 id="title">Movies, TV Shows, and other media you'd expect</h2>
 
 <ul id="show-list">
-	<li class="show-container" *ngFor="let show of showList" (click)="navigateTo(show.more_details_redirect)">
+	<li class="show-container" *ngFor="let show of showList">
+		<button (click)="removeShow(show)"><mat-icon>remove</mat-icon></button>
 		<div class="show-cover">
-			<img *ngIf="show.cover_image_path" src="{{show.cover_image_path}}" alt="a poster of {{show.name}}" />
+			<img *ngIf="show.cover_image_path" src="{{show.cover_image_path}}" alt="a poster of {{show.name}}"
+				(click)="navigateTo(show.more_details_redirect)" (keydown)="doNothing()" />
 			<p *ngIf="!show.cover_image_path">no poster for {{show.name}}</p>
 		</div>
 		<div class="show-description">
-			<p class="show-name">{{ show.name }}</p>
+			<p class="show-name" (click)="navigateTo(show.more_details_redirect)" (keydown)="doNothing()">{{ show.name
+				}}</p>
 			<p class="show-type">({{ show.type }}) |
 				<span><mat-icon
 						style="vertical-align: middle; font-size: 1.5em; color: gold; -webkit-text-stroke: 1px black;">star</mat-icon>
