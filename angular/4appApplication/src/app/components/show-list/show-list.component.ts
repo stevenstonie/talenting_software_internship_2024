@@ -12,14 +12,7 @@ export class ShowListComponent {
   isDialogWindowOpened: boolean = false;
   isWarned: boolean = false;
   siteToNavigateTo: string | null = null;
-  showToAdd: Show = {
-    id: 0,
-    name: '',
-    cover_image_path: null,
-    type: null,
-    rating: 0,
-    more_details_redirect: null
-  }
+  showToAdd: Show = this.setShowToAddToDefaultValues();
 
   constructor() {
     this.showList = this.getShowsFromStorage();
@@ -44,6 +37,8 @@ export class ShowListComponent {
 
   addShow() {
     this.addShowToStorage();
+
+    this.showToAdd = this.setShowToAddToDefaultValues();
   }
 
   addShowToStorage() {
@@ -70,8 +65,20 @@ export class ShowListComponent {
     this.saveShowsToStorage(this.showList);
   }
 
+  // -------------------------------------------------
+
   doNothing() {
 
   }
 
+  private setShowToAddToDefaultValues(): Show {
+    return {
+      id: 0,
+      name: '',
+      cover_image_path: null,
+      type: null,
+      rating: 0,
+      more_details_redirect: null
+    }
+  }
 }

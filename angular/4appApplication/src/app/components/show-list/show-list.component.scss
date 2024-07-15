@@ -11,6 +11,7 @@
 	&-container {
 		width: 200px;
 		margin: 15px 30px;
+		position: relative;
 		overflow: hidden;
 		height: 350px;
 		border-radius: 5px;
@@ -23,15 +24,20 @@
 			transform: translateY(-3px) translateX(-3px);
 			color: var(--primary-color);
 			transition-duration: 0.3s;
+
+			.remove-show-button {
+				display: block;
+			}
 		}
 
-		button {
+		.remove-show-button {
 			position: absolute;
 			top: 5px;
 			right: 5px;
 			background-color: transparent;
 			border: none;
 			cursor: pointer;
+			display: none;
 
 			&:hover {
 				color: red;
