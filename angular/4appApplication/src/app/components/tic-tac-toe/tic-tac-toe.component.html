@@ -3,16 +3,12 @@
 <p id="title">Tic-Tac-Toe</p>
 
 <div *ngIf="gameStarted">
+	<p id="title">Player {{currentPlayer}}'s turn</p>
 	<div id="game-table">
-		<div class="square">1</div>
-		<div class="square">2</div>
-		<div class="square">3</div>
-		<div class="square">4</div>
-		<div class="square">5</div>
-		<div class="square">6</div>
-		<div class="square">7</div>
-		<div class="square">8</div>
-		<div class="square">9</div>
+		<div class="square" *ngFor="let square of [1,2,3,4,5,6,7,8,9]; let i = index" (mouseenter)="mouseHovering(i)"
+			(mouseleave)="mouseNotHovering()">
+			<span *ngIf="hoveredSquare === i">{{ currentPlayer }}</span>
+		</div>
 	</div>
 
 	<button id="exit-game-button" class="primary-button" (click)="exitGame()"><mat-icon>exit_to_app</mat-icon></button>

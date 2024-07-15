@@ -8,7 +8,16 @@ import { Component } from '@angular/core';
 export class TicTacToeComponent {
   gameStarted = false;
   playsVsComputer = false;
+  currentPlayer: 'X' | 'O' = 'X';
+  hoveredSquare: number | null = null;
 
+  mouseHovering(index: number) {
+    this.hoveredSquare = index;
+  }
+
+  mouseNotHovering() {
+    this.hoveredSquare = null;
+  }
 
   startNewGame() {
     this.gameStarted = true;
