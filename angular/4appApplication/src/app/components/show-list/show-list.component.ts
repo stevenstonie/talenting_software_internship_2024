@@ -49,6 +49,8 @@ export class ShowListComponent {
       this.showToAdd.numberOfTotalRatings = Math.floor(Math.random() * 100) + 1;
     }
 
+    this.showToAdd.id = this.getNextIdAvailableForShow();
+
     this.showList.unshift(this.showToAdd);
 
     this.saveShowsToStorage(this.showList);
@@ -62,6 +64,23 @@ export class ShowListComponent {
   saveShowsToStorage(shows: Show[]) {
     const jsonShowData = JSON.stringify(shows);
     localStorage.setItem('shows', jsonShowData);
+  }
+
+  getNextIdAvailableForShow() {
+    let showIds = this.showList.map(show => show.id);
+
+    showIds.sort((a, b) => a - b);
+
+    let nextId = 1;
+    for (const id of showIds) {
+      if (id === nextId) {
+        nextId = id + 1;
+      } else if (id > nextId) {
+        break;
+      }
+    }
+
+    return nextId;
   }
 
   toggleRateShowWindow(show: Show, event: Event) {
