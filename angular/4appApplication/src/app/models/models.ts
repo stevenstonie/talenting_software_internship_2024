@@ -4,6 +4,7 @@ export interface Show {
 	cover_image_path: string | null;
 	type: ShowType | null;
 	rating: number;
+	numberOfTotalRatings: number;
 	more_details_redirect: string | null;
 }
 

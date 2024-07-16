@@ -13,7 +13,8 @@ export class ShowListComponent {
   isDialogWindowOpened: boolean = false;
   isWarned: boolean = false;
   siteToNavigateTo: string | null = null;
-  showToAdd: Show = this.setShowToAddToDefaultValues();
+  showToAdd: Show = this.setShowCredentialsToDefault();
+  showToRate: Show = this.setShowCredentialsToDefault();
   showTypes: ShowType[] = Object.values(ShowType);
 
   constructor(private renderer: Renderer2) {
@@ -40,10 +41,14 @@ export class ShowListComponent {
   addShow() {
     this.addShowToStorage();
 
-    this.showToAdd = this.setShowToAddToDefaultValues();
+    this.showToAdd = this.setShowCredentialsToDefault();
   }
 
   addShowToStorage() {
+    if (this.showToAdd.rating >= 1) {
+      this.showToAdd.numberOfTotalRatings = Math.floor(Math.random() * 100) + 1;
+    }
+
     this.showList.unshift(this.showToAdd);
 
     this.saveShowsToStorage(this.showList);
@@ -62,6 +67,12 @@ export class ShowListComponent {
   toggleRateShowWindow(show: Show, event: Event) {
     this.isRateShowWindowOpened = !this.isRateShowWindowOpened;
 
+    if (this.isRateShowWindowOpened) {
+      this.showToRate = show;
+    } else {
+      this.showToRate = this.setShowCredentialsToDefault();
+    }
+
     const rateShowWindow = document.getElementById('rate-show-window');
 
     if (rateShowWindow) {
@@ -69,14 +80,20 @@ export class ShowListComponent {
 
       if (posOfClickedElem.top < window.innerHeight / 2) {
         console.log('above middle')
+        this.renderer.setStyle(rateShowWindow, 'top', `${window.scrollY}px`);
       } else {
         console.log('below middle')
+        this.renderer.setStyle(rateShowWindow, 'top', `${posOfClickedElem.top + window.scrollY - rateShowWindow.offsetHeight}px`);
       }
-      
+
       if (posOfClickedElem.left < window.innerWidth / 2) {
         console.log('left of middle')
+        this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
+        this.renderer.setStyle(rateShowWindow, 'transform', `translate(110px, 0)`);
       } else {
         console.log('right of middle')
+        this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
+        this.renderer.setStyle(rateShowWindow, 'transform', `translate(${-rateShowWindow.offsetWidth - 110}px, 0)`);
       }
     }
   }
@@ -93,13 +110,14 @@ export class ShowListComponent {
 
   }
 
-  private setShowToAddToDefaultValues(): Show {
+  private setShowCredentialsToDefault(): Show {
     return {
       id: 0,
       name: '',
       cover_image_path: null,
       type: null,
       rating: 0,
+      numberOfTotalRatings: 0,
       more_details_redirect: null
     }
   }
