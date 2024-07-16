@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { GameState } from '../models/models';
+import { HangmanGameState } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class HangmanService {
   private wrongGuesses: string[] = [];
   private maxIncorrectGuesses: number = 6;
 
-  private gameStateSubject = new BehaviorSubject<GameState>(this.getInitialGameState());
+  private gameStateSubject = new BehaviorSubject<HangmanGameState>(this.getInitialGameState());
   gameState$ = this.gameStateSubject.asObservable();
 
   constructor() {
@@ -50,6 +50,8 @@ export class HangmanService {
       return;
     }
 
+    letter = letter.toLowerCase();
+
     if (this.rightGuesses.includes(letter) || this.wrongGuesses.includes(letter)) {
       return;
     }
@@ -67,7 +69,7 @@ export class HangmanService {
     return this.maxIncorrectGuesses;
   }
 
-  private getInitialGameState(): GameState {
+  private getInitialGameState(): HangmanGameState {
     return {
       selectedWord: this.selectedWord,
       rightGuesses: this.rightGuesses,

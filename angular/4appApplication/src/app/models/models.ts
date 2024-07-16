@@ -19,7 +19,14 @@ export interface DialogWindow {
 	isDialogWindowOpened: boolean
 }
 
-export interface GameState {
+export interface TicTacToeGameState {
+	winner: 'X' | 'O' | null | 'DRAW';
+	winningSquares: number[];
+	nextPlayer: 'X' | 'O';
+	gridSelections: ('X' | 'O' | null)[];
+}
+
+export interface HangmanGameState {
 	selectedWord: string | null;
 	rightGuesses: string[];
 	wrongGuesses: string[];
