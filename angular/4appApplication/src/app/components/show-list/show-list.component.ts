@@ -15,6 +15,7 @@ export class ShowListComponent {
   siteToNavigateTo: string | null = null;
   showToAdd: Show = this.setShowCredentialsToDefault();
   showToRate: Show = this.setShowCredentialsToDefault();
+  ratingChosen: number = 1;
   showTypes: ShowType[] = Object.values(ShowType);
 
   constructor(private renderer: Renderer2) {
@@ -48,7 +49,6 @@ export class ShowListComponent {
     if (this.showToAdd.rating >= 1) {
       this.showToAdd.numberOfTotalRatings = Math.floor(Math.random() * 100) + 1;
     }
-
     this.showToAdd.id = this.getNextIdAvailableForShow();
 
     this.showList.unshift(this.showToAdd);
@@ -83,6 +83,25 @@ export class ShowListComponent {
     return nextId;
   }
 
+  rateShow() {
+    const ratedShows = localStorage.getItem('ratedShows');
+
+    for (const ratedShowId of JSON.parse(ratedShows!)) {
+      if (ratedShowId === this.showToRate.id) {
+        // open that dialog window
+        return;
+      }
+    }
+
+    // get the showToRate's average and total and do an arithmetic mean with this new one
+
+    // assign the showToRate's rate field with the value obtained above and save it to storage
+
+    // also save the showToRate's id to storage
+
+    // ^^^ wrote logic for now because its getting too late
+  }
+
   toggleRateShowWindow(show: Show, event: Event) {
     this.isRateShowWindowOpened = !this.isRateShowWindowOpened;
 
@@ -97,7 +116,7 @@ export class ShowListComponent {
     if (rateShowWindow) {
       const posOfClickedElem = (event.currentTarget as HTMLElement).getBoundingClientRect();
 
-      if (posOfClickedElem.top < window.innerHeight / 2) {
+      if (posOfClickedElem.top < window.innerHeight / 4) {
         console.log('above middle')
         this.renderer.setStyle(rateShowWindow, 'top', `${window.scrollY}px`);
       } else {
@@ -108,11 +127,11 @@ export class ShowListComponent {
       if (posOfClickedElem.left < window.innerWidth / 2) {
         console.log('left of middle')
         this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
-        this.renderer.setStyle(rateShowWindow, 'transform', `translate(110px, 0)`);
+        this.renderer.setStyle(rateShowWindow, 'transform', `translate(120px, 0)`);
       } else {
         console.log('right of middle')
         this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
-        this.renderer.setStyle(rateShowWindow, 'transform', `translate(${-rateShowWindow.offsetWidth - 110}px, 0)`);
+        this.renderer.setStyle(rateShowWindow, 'transform', `translate(${-rateShowWindow.offsetWidth - 80}px, 0)`);
       }
     }
   }

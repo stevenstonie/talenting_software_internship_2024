@@ -27,9 +27,10 @@
 
 <!-- rate show -->
 <div [class.visible]="isRateShowWindowOpened" id="rate-show-window">
-	<!-- <p>rate the {{ showToRate.type?.toLowerCase() }} "{{ showToRate.name }}" </p>
-	<label style="font-size: 0.7em">give it a rating<input type="number" min="1" max="10"
-			[(ngModel)]="showToRate.rating" id="rating" placeholder="a rating" /></label> -->
+	<p>rate the {{ showToRate.type?.toLowerCase() }} "{{ showToRate.name }}" </p>
+	<label style="font-size: 0.7em">give it a rating<input type="number" min="1" max="10" id="rating"
+			[(ngModel)]="ratingChosen" placeholder="a rating" /></label>
+	<button class="primary-button" (click)="rateShow()">submit</button>
 </div>
 
 <!-- add show -->
