@@ -16,7 +16,7 @@ export class TicTacToeComponent implements OnInit {
   winner: TicTacToeGameState['winner'] = null;
   hoveredSquare: number | null = null;
   gridSelections: TicTacToeGameState['gridSelections'] = Array(9).fill(null);
-  winningSquares: TicTacToeGameState['winningSquares'] = [];
+  winningLinePosition: { x1: string, y1: string, x2: string, y2: string } = { x1: '0', y1: '0', x2: '0', y2: '0' };
 
   private gameState: Subscription = new Subscription();
 
@@ -27,12 +27,17 @@ export class TicTacToeComponent implements OnInit {
       this.currentPlayer = state.nextPlayer;
       this.gridSelections = state.gridSelections;
       this.winner = state.winner;
-      this.winningSquares = state.winningSquares;
+
+      if (this.winner !== null && this.winner !== 'DRAW') {
+        this.winningLinePosition = this.getWinningLinePosition(state.winningSquares);
+      }
     })
   }
 
   mouseHovering(index: number) {
-    this.hoveredSquare = index;
+    if (this.winner === null) {
+      this.hoveredSquare = index;
+    }
   }
 
   mouseNotHovering() {
@@ -43,6 +48,25 @@ export class TicTacToeComponent implements OnInit {
     if (this.gridSelections[index] === null && this.winner === null) {
       this.ticTacToeService.selectSquare(index, this.currentPlayer);
     }
+  }
+
+  getWinningLinePosition(winningSquares: TicTacToeGameState['winningSquares']): { x1: string, y1: string, x2: string, y2: string } {
+    const positions = [
+      { x: '15%', y: '15%' },  // 0
+      { x: '50%', y: '15%' },  // 1
+      { x: '85%', y: '15%' },  // 2
+      { x: '15%', y: '50%' },  // 3
+      { x: '50%', y: '50%' },  // 4
+      { x: '85%', y: '50%' },  // 5
+      { x: '15%', y: '85%' },  // 6
+      { x: '50%', y: '85%' },  // 7
+      { x: '85%', y: '85%' }   // 8
+    ];
+
+    const start = positions[winningSquares[0]];
+    const end = positions[winningSquares[2]];
+
+    return { x1: start.x, y1: start.y, x2: end.x, y2: end.y };
   }
 
   startNewGame() {

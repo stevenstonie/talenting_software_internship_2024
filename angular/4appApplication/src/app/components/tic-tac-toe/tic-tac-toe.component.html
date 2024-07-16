@@ -10,15 +10,19 @@
 	</ng-template>
 
 	<div id="game-table">
-		<div class="square" *ngFor="let square of gridSelections; let i = index" (mouseenter)="mouseHovering(i)"
-			(mouseleave)="mouseNotHovering()" (click)="selectSquare(i)"
-			[ngClass]="{ 'winning-squares': winningSquares.includes(i) }">
+		<div class="square" *ngFor="let square of gridSelections; let i = index" (click)="selectSquare(i)"
+			(mouseenter)="mouseHovering(i)" (mouseleave)="mouseNotHovering()">
 			<span class="selecting" *ngIf="hoveredSquare === i && gridSelections[i] === null; else displaySelection">
 				{{ currentPlayer }}</span>
 			<ng-template #displaySelection>
 				<span class="selection">{{ gridSelections[i] }}</span>
 			</ng-template>
 		</div>
+		<svg *ngIf="winner !== null && winner !== 'DRAW'" class="winning-line">
+			<line [attr.x1]="winningLinePosition.x1" [attr.y1]="winningLinePosition.y1"
+				[attr.x2]="winningLinePosition.x2" [attr.y2]="winningLinePosition.y2" stroke="var(--primary-color)"
+				stroke-width="5" />
+		</svg>
 	</div>
 
 	<button id="exit-game-button" class="primary-button" (click)="exitGame()"><mat-icon>exit_to_app</mat-icon></button>
