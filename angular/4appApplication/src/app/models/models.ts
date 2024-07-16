@@ -11,6 +11,9 @@ export enum ShowType {
 	ANIME = 'ANIME',
 	TV_SHOW = 'TV SHOW',
 	MOVIE = 'MOVIE',
+	DOCUMENTARY = 'DOCUMENTARY',
+	SHORT_FILM = 'SHORT FILM',
+	OTHER = 'OTHER',
 }
 
 export interface DialogWindow {

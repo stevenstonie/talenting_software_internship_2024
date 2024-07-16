@@ -13,6 +13,7 @@ export class ShowListComponent {
   isWarned: boolean = false;
   siteToNavigateTo: string | null = null;
   showToAdd: Show = this.setShowToAddToDefaultValues();
+  showTypes: ShowType[] = Object.values(ShowType);
 
   constructor() {
     this.showList = this.getShowsFromStorage();

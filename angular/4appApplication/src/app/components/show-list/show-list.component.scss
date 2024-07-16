@@ -101,10 +101,6 @@
 	border: 2px solid black;
 	background: linear-gradient(to right, var(--third-color), var(--secondary-color));
 
-	* {
-		margin: 5px;
-	}
-
 	input {
 		border-radius: 10px;
 		box-sizing: border-box;
@@ -131,7 +127,9 @@
 	}
 
 	#show-type-list {
-		display: flex;
+		display: grid;
 		justify-content: space-between;
+		justify-items: center;
+		grid-template-columns: repeat(3, 1fr);
 	}
 }
