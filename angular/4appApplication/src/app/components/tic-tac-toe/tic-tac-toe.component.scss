@@ -19,6 +19,15 @@
 		z-index: 10;
 	}
 
+	.winner-gif {
+		position: absolute;
+		top: 62%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 600px;
+		height: 600px;
+	}
+
 	.square {
 		border: 1px solid black;
 		width: 100%;
