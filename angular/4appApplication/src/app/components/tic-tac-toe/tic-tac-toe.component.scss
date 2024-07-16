@@ -14,10 +14,22 @@
 		width: 100%;
 		height: 100%;
 
+		.selection {
+			font-size: 7em;
+			font-weight: lighter;
+			color: black;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			user-select: none;
+		}
+
 		&:hover {
 			cursor: pointer;
 
-			span {
+			.selecting {
 				font-size: 7em;
 				font-weight: lighter;
 				color: rgba(0, 0, 0, 0.3);

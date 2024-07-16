@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DialogWindow, GameState } from 'src/app/models/models';
+import { DialogWindow, HangmanGameState } from 'src/app/models/models';
 import { HangmanWordToDisplayPipe } from 'src/app/pipes/hangman-word-to-display.pipe';
 import { HangmanService } from 'src/app/services/hangman.service';
 
@@ -16,7 +16,6 @@ export class HangmanComponent implements OnInit, OnDestroy {
   DialogWindow: DialogWindow = {
     title: '',
     message: '',
-
     isDialogWindowOpened: false
   };
 
@@ -36,6 +35,7 @@ export class HangmanComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
   guessLetter(letter: string) {
     this.hangmanService.guessLetter(letter);
   }
@@ -54,7 +54,7 @@ export class HangmanComponent implements OnInit, OnDestroy {
     this.hangmanService.exitGame();
   }
 
-  populateDialogWindow(state: GameState) {
+  populateDialogWindow(state: HangmanGameState) {
     this.DialogWindow.isDialogWindowOpened = true;
 
     if (state.gameWon) {
