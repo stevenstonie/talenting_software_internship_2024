@@ -4,10 +4,15 @@
 
 <div *ngIf="hasGameStarted">
 	<p *ngIf="!winner" id="title">Player {{currentPlayer}}'s turn</p>
-	<p *ngIf="winner" id="title">Player {{winner}} won!</p>
+	<p *ngIf="winner === 'DRAW'; else displayWinner" id="title">Its a draw!</p>
+	<ng-template #displayWinner>
+		<p id="title">Player {{winner}} won!</p>
+	</ng-template>
+
 	<div id="game-table">
 		<div class="square" *ngFor="let square of gridSelections; let i = index" (mouseenter)="mouseHovering(i)"
-			(mouseleave)="mouseNotHovering()" (click)="selectSquare(i)">
+			(mouseleave)="mouseNotHovering()" (click)="selectSquare(i)"
+			[ngClass]="{ 'winning-squares': winningSquares.includes(i) }">
 			<span class="selecting" *ngIf="hoveredSquare === i && gridSelections[i] === null; else displaySelection">
 				{{ currentPlayer }}</span>
 			<ng-template #displaySelection>

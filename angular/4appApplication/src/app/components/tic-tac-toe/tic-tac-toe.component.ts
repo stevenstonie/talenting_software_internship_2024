@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { TicTacToeGameState } from 'src/app/models/models';
 import { TicTacToeService } from 'src/app/services/tic-tac-toe.service';
 
 @Component({
@@ -11,10 +12,11 @@ export class TicTacToeComponent implements OnInit {
   hasGameStarted = false;
   playsVsComputer = false;
 
-  currentPlayer: 'X' | 'O' = 'X';
-  winner: 'X' | 'O' | null = null;
+  currentPlayer: TicTacToeGameState['nextPlayer'] = 'X';
+  winner: TicTacToeGameState['winner'] = null;
   hoveredSquare: number | null = null;
-  gridSelections: ('X' | 'O' | null)[] = Array(9).fill(null);
+  gridSelections: TicTacToeGameState['gridSelections'] = Array(9).fill(null);
+  winningSquares: TicTacToeGameState['winningSquares'] = [];
 
   private gameState: Subscription = new Subscription();
 
@@ -25,9 +27,8 @@ export class TicTacToeComponent implements OnInit {
       this.currentPlayer = state.nextPlayer;
       this.gridSelections = state.gridSelections;
       this.winner = state.winner;
+      this.winningSquares = state.winningSquares;
     })
-
-    console.log('TicTacToeComponent initialized and subscribed to TicTacToeService');
   }
 
   mouseHovering(index: number) {
@@ -47,22 +48,14 @@ export class TicTacToeComponent implements OnInit {
   startNewGame() {
     this.ticTacToeService.startNewGame();
 
-    console.log("COMPONENT--------------------------------------------------");
-    console.log('next player: ' + this.currentPlayer);
-    console.log('winner: ' + this.winner);
-
     this.hasGameStarted = true;
   }
 
   exitGame() {
-    this.ticTacToeService.exitGame();
-
     this.hasGameStarted = false;
   }
 
   ngOnDestroy(): void {
     this.gameState.unsubscribe();
-
-    console.log('TicTacToeComponent destroyed and unsubscribed from TicTacToeService');
   }
 }

@@ -20,7 +20,8 @@ export interface DialogWindow {
 }
 
 export interface TicTacToeGameState {
-	winner: 'X' | 'O' | null;
+	winner: 'X' | 'O' | null | 'DRAW';
+	winningSquares: number[];
 	nextPlayer: 'X' | 'O';
 	gridSelections: ('X' | 'O' | null)[];
 }

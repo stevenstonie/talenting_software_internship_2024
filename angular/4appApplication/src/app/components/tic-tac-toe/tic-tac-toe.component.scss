@@ -9,6 +9,10 @@
 	transform: translateX(-50%);
 	top: 30%;
 
+	.winning-squares {
+		background-color: var(--primary-color);
+	}
+
 	.square {
 		border: 1px solid black;
 		width: 100%;

@@ -9,9 +9,10 @@ export class TicTacToeService {
   private gameStateSubject = new BehaviorSubject<TicTacToeGameState>(this.getInitialGameState());
   gameState = this.gameStateSubject.asObservable();
 
-  winner: 'X' | 'O' | null = null;
-  nextPlayer: 'X' | 'O' = 'X';
-  gridSelections: ('X' | 'O' | null)[] = Array(9).fill(null);
+  winner: TicTacToeGameState['winner'] = null;
+  nextPlayer: TicTacToeGameState['nextPlayer'] = 'X';
+  gridSelections: TicTacToeGameState['gridSelections'] = Array(9).fill(null);
+  winningSquares: TicTacToeGameState['winningSquares'] = [];
   private combinations: number[][] = [
     [0, 1, 2],
     [3, 4, 5],
@@ -40,35 +41,33 @@ export class TicTacToeService {
     this.nextPlayer = 'X';
     this.gridSelections = Array(9).fill(null);
     this.winner = null;
-
-    console.log("SERVICE--------------------------------------------------");
-    console.log('next player: ' + this.nextPlayer);
-    console.log('winner: ' + this.winner);
+    this.winningSquares = [];
 
     this.updateGameState();
   }
 
-  exitGame() {
-  }
-
   private updateGameState() {
-
     this.gameStateSubject.next({
       winner: this.checkForWinner(),
       gridSelections: this.gridSelections,
-      nextPlayer: this.nextPlayer
+      nextPlayer: this.nextPlayer,
+      winningSquares: this.winningSquares
     });
   }
 
-  private checkForWinner(): 'X' | 'O' | null {
+  private checkForWinner(): TicTacToeGameState['winner'] {
     for (let combination of this.combinations) {
       const [a, b, c] = combination;
 
       if (this.gridSelections[a] && this.gridSelections[a] === this.gridSelections[b] && this.gridSelections[a] === this.gridSelections[c]) {
+        this.winningSquares = combination;
         return this.gridSelections[a];
       }
     }
 
+    if (this.gridSelections.every(square => square !== null)) {
+      return 'DRAW';
+    }
     return null;
   }
 
@@ -76,11 +75,8 @@ export class TicTacToeService {
     return {
       winner: null,
       gridSelections: Array(9).fill(null),
-      nextPlayer: 'X'
+      nextPlayer: 'X',
+      winningSquares: []
     }
   }
-
-  // private printNoSquareSelectedError() {
-  //   console.log('no square selected..');
-  // }
 }
