@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { Show, ShowType } from 'src/app/models/models';
 
 @Component({
@@ -9,13 +9,14 @@ import { Show, ShowType } from 'src/app/models/models';
 export class ShowListComponent {
   showList: Array<Show> = [];
   isAddShowWindowOpened: boolean = false;
+  isRateShowWindowOpened: boolean = false;
   isDialogWindowOpened: boolean = false;
   isWarned: boolean = false;
   siteToNavigateTo: string | null = null;
   showToAdd: Show = this.setShowToAddToDefaultValues();
   showTypes: ShowType[] = Object.values(ShowType);
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
     this.showList = this.getShowsFromStorage();
   }
 
@@ -56,6 +57,28 @@ export class ShowListComponent {
   saveShowsToStorage(shows: Show[]) {
     const jsonShowData = JSON.stringify(shows);
     localStorage.setItem('shows', jsonShowData);
+  }
+
+  toggleRateShowWindow(show: Show, event: Event) {
+    this.isRateShowWindowOpened = !this.isRateShowWindowOpened;
+
+    const rateShowWindow = document.getElementById('rate-show-window');
+
+    if (rateShowWindow) {
+      const posOfClickedElem = (event.currentTarget as HTMLElement).getBoundingClientRect();
+
+      if (posOfClickedElem.top < window.innerHeight / 2) {
+        console.log('above middle')
+      } else {
+        console.log('below middle')
+      }
+      
+      if (posOfClickedElem.left < window.innerWidth / 2) {
+        console.log('left of middle')
+      } else {
+        console.log('right of middle')
+      }
+    }
   }
 
   removeShow(show: Show) {

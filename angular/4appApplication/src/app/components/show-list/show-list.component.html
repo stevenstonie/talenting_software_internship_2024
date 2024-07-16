@@ -13,9 +13,9 @@
 		<div class="show-description">
 			<p class="show-name" (click)="navigateTo(show.more_details_redirect)" (keydown)="doNothing()">
 				{{ show.name }}</p>
-			<p class="show-type">({{ show.type }}) |
-				<span><mat-icon
-						style="vertical-align: middle; font-size: 1.5em; color: gold; -webkit-text-stroke: 1px black;">star</mat-icon>
+			<p class="show-details">({{ show.type }}) |
+				<span class="show-rating" (click)="toggleRateShowWindow(show, $event)" (keydown)="doNothing()"><mat-icon
+						style="vertical-align: top; font-size: 1.4em; color: gold; -webkit-text-stroke: 1px black;">star</mat-icon>
 					{{ show.rating }}
 				</span>
 			</p>
@@ -23,10 +23,13 @@
 	</li>
 
 </ul>
-<p
-	style="position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 0.9em; color: var(--primary-color);">
-	internet connection is necessary for displaying unloaded show covers and redirection to sites</p>
 
+<!-- rate show -->
+<div [class.visible]="isRateShowWindowOpened" id="rate-show-window" *ngIf="isRateShowWindowOpened">
+
+</div>
+
+<!-- add show -->
 <button id="add-show-button" class="primary-button" (click)="toggleAddShowWindow()">
 	<mat-icon *ngIf="!isAddShowWindowOpened">add</mat-icon>
 	<mat-icon *ngIf="isAddShowWindowOpened">close</mat-icon>
@@ -38,8 +41,8 @@
 	<input type="text" [(ngModel)]="showToAdd.name" id="name" placeholder="give it a name" />
 	<input type="text" [(ngModel)]="showToAdd.cover_image_path" id="cover-image-path"
 		placeholder="provide an url for the poster image" />
-	<label style="font-size: 0.7em">initial rating<input type="number" min="0" max="10" [(ngModel)]="showToAdd.rating" id="rating"
-			placeholder="an initial rating" /></label>
+	<label style="font-size: 0.7em">initial rating<input type="number" min="0" max="10" [(ngModel)]="showToAdd.rating"
+			id="rating" placeholder="an initial rating" /></label>
 	<div id="show-type-list">
 		<div *ngFor="let showType of showTypes">
 			<label><input type="radio" name="show-type" value="{{showType}}"
@@ -49,8 +52,15 @@
 	<input type="text" [(ngModel)]="showToAdd.more_details_redirect" id="name"
 		placeholder="the url to the show page on imdb" />
 
-	<button class="primary-button" (click)="addShow()">submit</button>
+	<button class="primary-button" style="margin-top: 5px; width: 80px; margin-left: auto; margin-right: auto;"
+		(click)="addShow()">submit</button>
 </section>
+
+
+<!-- auxiliaries -->
+<p
+	style="position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 0.9em; color: var(--primary-color);">
+	internet connection is necessary for displaying unloaded covers of shows and redirection to sites</p>
 
 <app-dialog-window *ngIf="isDialogWindowOpened" [title]="'!!!'" [message]="'you will be redirected to another site'"
 	(closeWindow)="navigateTo(null)"></app-dialog-window>
