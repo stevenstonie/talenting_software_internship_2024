@@ -3,10 +3,17 @@
 <p id="title">Tic-Tac-Toe</p>
 
 <div *ngIf="hasGameStarted">
-	<p *ngIf="!winner; else displayDraw" id="title">Player {{currentPlayer}}'s turn</p>
+	<ng-container *ngIf="!winner; else displayDraw">
+		<p *ngIf="!playsVsComputer; else displayPlaysVsComputer" id="title">Player {{currentPlayer}}'s turn</p>
+		<ng-template #displayPlaysVsComputer>
+			<p *ngIf="currentPlayer !== selectedCharacter" id="title">Computer's turn</p>
+			<p *ngIf="currentPlayer === selectedCharacter" id="title">Your turn</p>
+		</ng-template>
+
+	</ng-container>
 	<ng-template #displayDraw>
 		<p *ngIf="winner === 'DRAW'; else displayWinner" id="title" style="margin-top: 90px; font-size: xxx-large;">
-			Its a draw!</p>
+			It's a draw!</p>
 	</ng-template>
 	<ng-template #displayWinner>
 		<p id="title" style="margin-top: 90px; font-size: xxx-large;">Player {{winner}} won!</p>
@@ -44,7 +51,14 @@
 			<span class="slider round"></span>
 		</label>
 		<p [class.selected-gamemode]="playsVsComputer">play vs computer (to implement)</p>
+
 	</div>
+	<div id="character-selection" *ngIf="playsVsComputer">
+		<p>choose the character to play with</p>
+		<input type="radio" name="character" value="X" [(ngModel)]="selectedCharacter" />X
+		<input type="radio" name="character" value="O" [(ngModel)]="selectedCharacter" />O
+	</div>
+
 
 	<button id="start-game-button" class="primary-button" (click)="startNewGame()">start new game</button>
 </div>

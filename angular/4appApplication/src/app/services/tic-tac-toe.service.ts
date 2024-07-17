@@ -13,6 +13,7 @@ export class TicTacToeService {
   nextPlayer: TicTacToeGameState['nextPlayer'] = 'X';
   gridSelections: TicTacToeGameState['gridSelections'] = Array(9).fill(null);
   winningSquares: TicTacToeGameState['winningSquares'] = [];
+  private selectedCharacter: ('X' | 'O' | null) = null;
   private combinations: number[][] = [
     [0, 1, 2],
     [3, 4, 5],
@@ -29,7 +30,7 @@ export class TicTacToeService {
 
   constructor() { }
 
-  selectSquare(index: number, player: 'X' | 'O') {
+  makeMove(index: number, player: 'X' | 'O') {
     if (this.gridSelections[index] !== null) {
       return;
     }
@@ -46,7 +47,8 @@ export class TicTacToeService {
     this.updateGameState();
   }
 
-  startNewGame() {
+  startNewGame(selectedCharacter: ('X' | 'O' | null)) {
+    this.selectedCharacter = selectedCharacter;
     this.nextPlayer = 'X';
     this.gridSelections = Array(9).fill(null);
     this.winner = null;
