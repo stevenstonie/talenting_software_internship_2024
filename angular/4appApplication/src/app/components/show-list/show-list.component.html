@@ -1,6 +1,6 @@
 <app-home-button></app-home-button>
 
-<h2 id="title">Movies, TV Shows, and other media you'd expect</h2>
+<h2 class="title">Movies, TV Shows, and other media you'd expect</h2>
 
 <ul id="show-list">
 	<li class="show-container" *ngFor="let show of showList">
@@ -40,7 +40,7 @@
 </button>
 
 <section id="add-show-window" *ngIf="booleans.isAddShowWindowOpened">
-	<p id="title" style="font-size: 1.3em; margin-bottom: 20px; margin-top: 10px;">add a new show</p>
+	<p class="title" style="font-size: 1.3em; margin-bottom: 20px; margin-top: 10px;">add a new show</p>
 
 	<input type="text" [(ngModel)]="showToAdd.name" id="name" placeholder="give it a name" />
 	<input type="text" [(ngModel)]="showToAdd.cover_image_path" id="cover-image-path"

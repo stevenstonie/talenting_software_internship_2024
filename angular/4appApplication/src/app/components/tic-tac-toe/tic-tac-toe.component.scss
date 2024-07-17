@@ -151,6 +151,11 @@
 	aspect-ratio: 1/1;
 }
 
+.finished-game-message {
+	margin-top: 90px;
+	font-size: xxx-large;
+}
+
 .selected-gamemode {
 	color: var(--primary-color);
 	transition: 0.2s;
