@@ -5,7 +5,8 @@
 <div *ngIf="hasGameStarted">
 	<p *ngIf="!winner; else displayDraw" id="title">Player {{currentPlayer}}'s turn</p>
 	<ng-template #displayDraw>
-		<p *ngIf="winner === 'DRAW'; else displayWinner" id="title" style="margin-top: 90px; font-size: xxx-large;">Its a draw!</p>
+		<p *ngIf="winner === 'DRAW'; else displayWinner" id="title" style="margin-top: 90px; font-size: xxx-large;">
+			Its a draw!</p>
 	</ng-template>
 	<ng-template #displayWinner>
 		<p id="title" style="margin-top: 90px; font-size: xxx-large;">Player {{winner}} won!</p>

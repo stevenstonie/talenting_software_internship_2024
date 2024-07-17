@@ -23,6 +23,9 @@ export class TicTacToeService {
     [0, 4, 8],
     [2, 4, 6]
   ];
+  private xSoundEffect = new Audio('assets/misc/X sound effect.mp3');
+  private oSoundEffect = new Audio('assets/misc/O sound effect.mp3');
+  private winSoundEffect = new Audio('assets/misc/win sound effect.mp3');
 
   constructor() { }
 
@@ -33,6 +36,12 @@ export class TicTacToeService {
 
     this.gridSelections[index] = player;
     this.nextPlayer = player === 'X' ? 'O' : 'X';
+
+    if (player === 'X') {
+      this.xSoundEffect.play();
+    } else {
+      this.oSoundEffect.play();
+    }
 
     this.updateGameState();
   }
@@ -60,6 +69,8 @@ export class TicTacToeService {
       const [a, b, c] = combination;
 
       if (this.gridSelections[a] && this.gridSelections[a] === this.gridSelections[b] && this.gridSelections[a] === this.gridSelections[c]) {
+        this.winSoundEffect.play();
+
         this.winningSquares = combination;
         return this.gridSelections[a];
       }
