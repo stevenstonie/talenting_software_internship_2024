@@ -16,6 +16,8 @@ export class HangmanService {
   private rightGuesses: string[] = [];
   private wrongGuesses: string[] = [];
   private maxIncorrectGuesses: number = 6;
+  private rightGuessSoundEffect = new Audio('assets/hangman/right guess sound effect.mp3');
+  private wrongGuessSoundEffect = new Audio('assets/hangman/wrong guess sound effect.mp3');
 
   private gameStateSubject = new BehaviorSubject<HangmanGameState>(this.getInitialGameState());
   gameState$ = this.gameStateSubject.asObservable();
@@ -58,8 +60,12 @@ export class HangmanService {
 
     if (this.selectedWord.includes(letter)) {
       this.rightGuesses.push(letter);
+
+      this.rightGuessSoundEffect.play();
     } else {
       this.wrongGuesses.push(letter);
+
+      this.wrongGuessSoundEffect.play();
     }
 
     this.updateGameState();

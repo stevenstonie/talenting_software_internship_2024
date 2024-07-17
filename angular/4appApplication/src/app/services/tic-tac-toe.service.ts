@@ -25,9 +25,9 @@ export class TicTacToeService {
     [0, 4, 8],
     [2, 4, 6]
   ];
-  private xSoundEffect = new Audio('assets/misc/X sound effect.mp3');
-  private oSoundEffect = new Audio('assets/misc/O sound effect.mp3');
-  private winSoundEffect = new Audio('assets/misc/win sound effect.mp3');
+  private xSoundEffect = new Audio('assets/tic-tac-toe/X sound effect.mp3');
+  private oSoundEffect = new Audio('assets/tic-tac-toe/O sound effect.mp3');
+  private winSoundEffect = new Audio('assets/tic-tac-toe/win sound effect.mp3');
 
   constructor() { }
 
