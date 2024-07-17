@@ -1,6 +1,6 @@
 #game-table {
 	display: grid;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: cursive;
 	grid-template-columns: repeat(3, 130px);
 	grid-template-rows: repeat(3, 130px);
 	justify-items: center;
@@ -16,7 +16,20 @@
 		top: 0;
 		left: 0;
 		pointer-events: none;
-		z-index: 10;
+		z-index: 2;
+		animation: drawLine .5s ease-in-out;
+	}
+
+	@keyframes drawLine {
+		from {
+			stroke-dasharray: 0, 1000;
+			stroke-dashoffset: 0;
+		}
+
+		to {
+			stroke-dasharray: 1000, 0;
+			stroke-dashoffset: 0;
+		}
 	}
 
 	.winner-gif {
@@ -26,7 +39,18 @@
 		transform: translate(-50%, -50%);
 		width: 600px;
 		height: 600px;
+
+		z-index: 3;
+		opacity: 0;
+		animation: fadeIn 0s ease-in .1s forwards;
+
+		@keyframes fadeIn {
+			to {
+				opacity: 1;
+			}
+		}
 	}
+
 
 	.square {
 		border: 1px solid black;
@@ -90,10 +114,19 @@
 #gamemode-selection {
 	position: absolute;
 	left: 50%;
-	transform: translateX(-43%);
+	transform: translateX(-56%);
 	top: 20%;
 	display: flex;
+	flex-direction: row;
 	align-items: center;
+	font-size: x-large;
+}
+
+#character-selection {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 30%;
 	font-size: x-large;
 }
 
@@ -116,6 +149,13 @@
 	top: 25px;
 	height: 40px;
 	aspect-ratio: 1/1;
+}
+
+.finished-game-message {
+	margin-top: 90px;
+	font-size: xxx-large;
+	text-align: center;
+	color: var(--primary-color);
 }
 
 .selected-gamemode {

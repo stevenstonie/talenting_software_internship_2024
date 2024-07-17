@@ -1,6 +1,6 @@
 <app-home-button></app-home-button>
 
-<h2 id="title">Hangman</h2>
+<h2 class="title">Hangman</h2>
 
 <button *ngIf="!selectedWord" id="start-game-button" class="primary-button" (click)="startNewGame()">
 	start new game</button>
@@ -23,7 +23,7 @@
 	</div>
 	<button id="exit-game-button" class="primary-button" (click)="exitGame()"><mat-icon>exit_to_app</mat-icon></button>
 
-	<app-dialog-window *ngIf="DialogWindow.isDialogWindowOpened" [title]="DialogWindow.title"
+	<app-dialog-window *ngIf="DialogWindow.isOpened" [title]="DialogWindow.title"
 		[message]="DialogWindow.message" (closeWindow)="exitGame()">
 	</app-dialog-window>
 </div>

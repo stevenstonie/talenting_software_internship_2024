@@ -11,6 +11,7 @@ import { TicTacToeService } from 'src/app/services/tic-tac-toe.service';
 export class TicTacToeComponent implements OnInit {
   hasGameStarted = false;
   playsVsComputer = false;
+  selectedCharacter: ('X' | 'O') = 'X';
 
   currentPlayer: TicTacToeGameState['nextPlayer'] = 'X';
   winner: TicTacToeGameState['winner'] = null;
@@ -35,6 +36,10 @@ export class TicTacToeComponent implements OnInit {
   }
 
   mouseHovering(index: number) {
+    if (this.playsVsComputer && this.currentPlayer !== this.selectedCharacter) {
+      return;
+    }
+
     if (this.winner === null) {
       this.hoveredSquare = index;
     }
@@ -45,8 +50,12 @@ export class TicTacToeComponent implements OnInit {
   }
 
   selectSquare(index: number) {
+    if (this.playsVsComputer && this.currentPlayer !== this.selectedCharacter) {
+      return;
+    }
+
     if (this.gridSelections[index] === null && this.winner === null) {
-      this.ticTacToeService.selectSquare(index, this.currentPlayer);
+      this.ticTacToeService.makeMove(index, this.currentPlayer);
     }
   }
 
@@ -70,7 +79,7 @@ export class TicTacToeComponent implements OnInit {
   }
 
   startNewGame() {
-    this.ticTacToeService.startNewGame();
+    this.ticTacToeService.startNewGame(this.selectedCharacter, this.playsVsComputer);
 
     this.hasGameStarted = true;
   }

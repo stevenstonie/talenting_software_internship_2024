@@ -4,19 +4,23 @@ export interface Show {
 	cover_image_path: string | null;
 	type: ShowType | null;
 	rating: number;
+	numberOfTotalRatings: number;
 	more_details_redirect: string | null;
 }
 
 export enum ShowType {
-	ANIME = 'ANIME',
 	TV_SHOW = 'TV SHOW',
 	MOVIE = 'MOVIE',
+	DOCUMENTARY = 'DOCUMENTARY',
+	SHORT_FILM = 'SHORT FILM',
+	ANIME_SERIES = 'ANIME SERIES',
+	ANIME_MOVIE = 'ANIME MOVIE',
 }
 
 export interface DialogWindow {
 	title: string;
 	message: string;
-	isDialogWindowOpened: boolean
+	isOpened: boolean
 }
 
 export interface TicTacToeGameState {

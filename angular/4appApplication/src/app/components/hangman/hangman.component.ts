@@ -16,7 +16,7 @@ export class HangmanComponent implements OnInit, OnDestroy {
   DialogWindow: DialogWindow = {
     title: '',
     message: '',
-    isDialogWindowOpened: false
+    isOpened: false
   };
 
   private gameState$: Subscription = new Subscription();
@@ -49,13 +49,13 @@ export class HangmanComponent implements OnInit, OnDestroy {
   }
 
   exitGame() {
-    this.DialogWindow.isDialogWindowOpened = false;
+    this.DialogWindow.isOpened = false;
 
     this.hangmanService.exitGame();
   }
 
   populateDialogWindow(state: HangmanGameState) {
-    this.DialogWindow.isDialogWindowOpened = true;
+    this.DialogWindow.isOpened = true;
 
     if (state.gameWon) {
 

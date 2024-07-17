@@ -1,51 +1,70 @@
 <app-home-button></app-home-button>
 
-<h2 id="title">Movies, TV Shows, and other media you'd expect</h2>
+<h2 class="title">Movies, TV Shows, and other media you'd expect</h2>
 
 <ul id="show-list">
 	<li class="show-container" *ngFor="let show of showList">
 		<div class="show-cover">
 			<img *ngIf="show.cover_image_path" src="{{show.cover_image_path}}" alt="a poster of {{show.name}}"
-			(click)="navigateTo(show.more_details_redirect)" (keydown)="doNothing()" />
-			<p *ngIf="!show.cover_image_path">no poster for {{show.name}}</p>
+				(click)="navigateTo(show.more_details_redirect)" (keydown)="doNothing()" />
+			<p *ngIf="!show.cover_image_path">no poster for {{ show.name }}</p>
 		</div>
 		<button class="remove-show-button" (click)="removeShow(show)"><mat-icon>remove</mat-icon></button>
 		<div class="show-description">
-			<p class="show-name" (click)="navigateTo(show.more_details_redirect)" (keydown)="doNothing()">{{ show.name
-			}}</p>
-			<p class="show-type">({{ show.type }}) |
-				<span><mat-icon
-						style="vertical-align: middle; font-size: 1.5em; color: gold; -webkit-text-stroke: 1px black;">star</mat-icon>
-					{{ show.rating }}
+			<p class="show-name" (click)="navigateTo(show.more_details_redirect)" (keydown)="doNothing()">
+				{{ show.name }}</p>
+			<p class="show-details">({{ show.type }}) |
+				<span class="show-rating" style="user-select: none;" (click)="toggleRateShowWindow(show, $event)"
+					(keydown)="doNothing()"><mat-icon
+						style="vertical-align: top; font-size: 1.4em; color: gold; -webkit-text-stroke: 1px black;">star</mat-icon>
+					{{ show.rating.toFixed(2) }} ({{ show.numberOfTotalRatings }})
 				</span>
 			</p>
 		</div>
 	</li>
 
-	<button id="add-show-button" class="primary-button" (click)="toggleAddShowWindow()">
-		<mat-icon *ngIf="!isAddShowWindowOpened">add</mat-icon>
-		<mat-icon *ngIf="isAddShowWindowOpened">close</mat-icon>
-	</button>
-
-	<section id="add-show-window" *ngIf="isAddShowWindowOpened">
-		<p id="title" style="font-size: 1.3em; margin-bottom: 20px;">add a new show</p>
-
-		<input type="text" [(ngModel)]="showToAdd.name" id="name" placeholder="give it a name" />
-		<input type="text" [(ngModel)]="showToAdd.cover_image_path" id="cover-image-path"
-			placeholder="provide an url for the poster image" />
-		<label style="font-size: 0.7em">initial rating<input type="number" [(ngModel)]="showToAdd.rating" id="rating"
-				placeholder="an initial rating" /></label>
-		<div id="show-type-list">
-			<label><input type="radio" name="show-type" value="TV SHOW" [(ngModel)]="showToAdd.type" />TV SHOW</label>
-			<label><input type="radio" name="show-type" value="MOVIE" [(ngModel)]="showToAdd.type" />MOVIE</label>
-			<label><input type="radio" name="show-type" value="ANIME" [(ngModel)]="showToAdd.type" />ANIME</label>
-		</div>
-		<input type="text" [(ngModel)]="showToAdd.more_details_redirect" id="name"
-			placeholder="the url to the show page on imdb" />
-
-		<button class="primary-button" (click)="addShow()">submit</button>
-	</section>
 </ul>
 
-<app-dialog-window *ngIf="isDialogWindowOpened" [title]="'!!!'" [message]="'you will be redirected to another site'"
-	(closeWindow)="navigateTo(null)"></app-dialog-window>
+<!-- rate show -->
+<div [class.visible]="booleans.isRateShowWindowOpened" id="rate-show-window">
+	<p>rate the {{ showToRate.type?.toLowerCase() }} "{{ showToRate.name }}" </p>
+	<label style="font-size: 0.7em">give it a rating<input type="number" min="1" max="10" id="rating"
+			[(ngModel)]="ratingChosen" placeholder="a rating" /></label>
+	<button class="primary-button" (click)="rateShow()">submit</button>
+</div>
+
+<!-- add show -->
+<button id="add-show-button" class="primary-button" (click)="toggleAddShowWindow()">
+	<mat-icon *ngIf="!booleans.isAddShowWindowOpened">add</mat-icon>
+	<mat-icon *ngIf="booleans.isAddShowWindowOpened">close</mat-icon>
+</button>
+
+<section id="add-show-window" *ngIf="booleans.isAddShowWindowOpened">
+	<p class="title" style="font-size: 1.3em; margin-bottom: 20px; margin-top: 10px;">add a new show</p>
+
+	<input type="text" [(ngModel)]="showToAdd.name" id="name" placeholder="give it a name" />
+	<input type="text" [(ngModel)]="showToAdd.cover_image_path" id="cover-image-path"
+		placeholder="provide an url for the poster image" />
+	<label style="font-size: 0.7em">initial rating<input type="number" step=".01" min="0" max="10"
+			[(ngModel)]="showToAdd.rating" id="rating" placeholder="an initial rating" /></label>
+	<div id="show-type-list">
+		<div *ngFor="let showType of showTypes">
+			<label><input type="radio" name="show-type" value="{{showType}}"
+					[(ngModel)]="showToAdd.type" />{{showType}}</label>
+		</div>
+	</div>
+	<input type="text" [(ngModel)]="showToAdd.more_details_redirect" id="name"
+		placeholder="the url to the show page on imdb" />
+
+	<button class="primary-button" style="margin-top: 5px; width: 80px; margin-left: auto; margin-right: auto;"
+		(click)="addShow()">submit</button>
+</section>
+
+
+<!-- auxiliaries -->
+<p
+	style="position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 0.9em; color: var(--primary-color);">
+	internet connection is necessary for displaying unloaded covers of shows and redirection to sites</p>
+
+<app-dialog-window *ngIf="dialogWindow.isOpened" [title]="dialogWindow.title"
+	[message]="dialogWindow.message" (closeWindow)="closeDialogWindow()"></app-dialog-window>
