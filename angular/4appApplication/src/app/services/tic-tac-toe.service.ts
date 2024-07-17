@@ -116,12 +116,12 @@ export class TicTacToeService {
   private getBestMove(): number | undefined {
     const computerCharacter = this.selectedCharacter === 'X' ? 'O' : 'X';
 
-    const bestMove = this.minimax(this.gridSelections, computerCharacter)?.index;
+    const bestMove = this.minimax(this.gridSelections, computerCharacter);
 
-    return bestMove;
+    return bestMove?.index;
   }
 
-  private minimax(board: TicTacToeGameState['gridSelections'], computer: TicTacToeGameState['nextPlayer']): { index: number, score: number } | null {
+  private minimax(board: TicTacToeGameState['gridSelections'], currentPlayer: TicTacToeGameState['nextPlayer']): { index: number, score: number } | null {
     const winner = this.checkForWinner(true);
     const computerCharacter = this.selectedCharacter === 'X' ? 'O' : 'X';
 
@@ -131,20 +131,20 @@ export class TicTacToeService {
 
     const availableMoves = this.getAvailableMoves(board);
 
-    const movesAndScores = this.evaluateMoves(board, computer, availableMoves);
+    const movesAndScores = this.evaluateMoves(board, currentPlayer, availableMoves);
 
     if (movesAndScores === null) {
       console.error('evaluateMoves() returned null.');
       return null;
     }
 
-    return this.returnBestMove(movesAndScores, computer);
+    return this.returnBestMove(movesAndScores, currentPlayer);
   }
 
-  private returnBestMove(moves: { index: number, score: number }[], computer: TicTacToeGameState['nextPlayer']) {
+  private returnBestMove(moves: { index: number, score: number }[], currentPlayer: TicTacToeGameState['nextPlayer']) {
     let bestMove = null;
 
-    if (computer === 'O') {
+    if (currentPlayer === 'X') {
       let bestScore = -Infinity;
       for (const move of moves) {
         if (move.score > bestScore) {
@@ -165,7 +165,7 @@ export class TicTacToeService {
     return bestMove;
   }
 
-  private evaluateMoves(board: TicTacToeGameState['gridSelections'], computer: TicTacToeGameState['nextPlayer'], availableMoves: number[]): { index: number, score: number }[] | null {
+  private evaluateMoves(board: TicTacToeGameState['gridSelections'], currentPlayer: TicTacToeGameState['nextPlayer'], availableMoves: number[]): { index: number, score: number }[] | null {
     let moves = [];
 
     for (const availableMove of availableMoves) {
@@ -174,16 +174,11 @@ export class TicTacToeService {
         score: 0
       };
 
-      board[availableMove] = computer;
+      board[availableMove] = currentPlayer;
 
-      let score;
-      if (computer === 'O') {
-        score = this.minimax(board, 'X')?.score;
-        move.score = score ?? 0;
-      } else {
-        score = this.minimax(board, 'O')?.score;
-        move.score = score ?? 0;
-      }
+      const nextPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      let result = this.minimax(board, nextPlayer);
+      move.score = result === null ? 0 : result.score;
 
       board[availableMove] = null;
 
