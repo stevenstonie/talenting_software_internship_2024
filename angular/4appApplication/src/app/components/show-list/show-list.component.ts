@@ -7,16 +7,19 @@ import { Show, ShowType } from 'src/app/models/models';
   styleUrls: ['./show-list.component.scss']
 })
 export class ShowListComponent {
+  storageNameForRatedShowsIds = 'ratedShowsIds';
   showList: Array<Show> = [];
-  isAddShowWindowOpened: boolean = false;
-  isRateShowWindowOpened: boolean = false;
-  isDialogWindowOpened: boolean = false;
-  isWarned: boolean = false;
   siteToNavigateTo: string | null = null;
   showToAdd: Show = this.setShowCredentialsToDefault();
   showToRate: Show = this.setShowCredentialsToDefault();
   ratingChosen: number = 1;
   showTypes: ShowType[] = Object.values(ShowType);
+  booleans = {
+    isAddShowWindowOpened: false,
+    isRateShowWindowOpened: false,
+    isDialogWindowOpened: false,
+    isWarned: false
+  }
 
   constructor(private renderer: Renderer2) {
     this.showList = this.getShowsFromStorage();
@@ -24,19 +27,19 @@ export class ShowListComponent {
 
   navigateTo(url: string | null) {
     this.siteToNavigateTo = url != null && url !== '' ? url : this.siteToNavigateTo;
-    if (!this.isWarned) {
-      this.isWarned = true;
-      this.isDialogWindowOpened = true;
+    if (!this.booleans.isWarned) {
+      this.booleans.isWarned = true;
+      this.booleans.isDialogWindowOpened = true;
     }
     else {
-      this.isDialogWindowOpened = false;
+      this.booleans.isDialogWindowOpened = false;
       window.open(this.siteToNavigateTo!, '_blank');
       this.siteToNavigateTo = null;
     }
   }
 
   toggleAddShowWindow: () => void = () => {
-    this.isAddShowWindowOpened = !this.isAddShowWindowOpened
+    this.booleans.isAddShowWindowOpened = !this.booleans.isAddShowWindowOpened
   }
 
   addShow() {
@@ -46,6 +49,9 @@ export class ShowListComponent {
   }
 
   addShowToStorage() {
+    if (this.showToAdd.rating < 1 || this.showToAdd.rating > 10) {
+      this.showToAdd.rating = 0;
+    }
     if (this.showToAdd.rating >= 1) {
       this.showToAdd.numberOfTotalRatings = Math.floor(Math.random() * 100) + 1;
     }
@@ -84,28 +90,38 @@ export class ShowListComponent {
   }
 
   rateShow() {
-    const ratedShows = localStorage.getItem('ratedShows');
+    if (!this.ratingChosen && this.ratingChosen < 1 || this.ratingChosen > 10) {
+      alert('invalid rating..');
+      return;
+    }
 
-    for (const ratedShowId of JSON.parse(ratedShows!)) {
+    const ratedShowsIds = this.getRatedShowsIdsFromLocalStorage();
+
+    for (const ratedShowId of ratedShowsIds) {
       if (ratedShowId === this.showToRate.id) {
-        // open that dialog window
+        alert('you have already rated this show.');
         return;
       }
     }
 
-    // get the showToRate's average and total and do an arithmetic mean with this new one
+    const averageRateOfShowToRate = this.showToRate.rating;
+    const nbOfRatingsOfShowToRate = this.showToRate.numberOfTotalRatings;
 
-    // assign the showToRate's rate field with the value obtained above and save it to storage
+    const newRating = (averageRateOfShowToRate * nbOfRatingsOfShowToRate + this.ratingChosen) / (nbOfRatingsOfShowToRate + 1);
 
-    // also save the showToRate's id to storage
+    this.showToRate.rating = newRating;
+    this.showToRate.numberOfTotalRatings += 1;
 
-    // ^^^ wrote logic for now because its getting too late
+    this.saveShowsToStorage(this.showList);
+
+    ratedShowsIds.push(this.showToRate.id);
+    localStorage.setItem(this.storageNameForRatedShowsIds, JSON.stringify(ratedShowsIds));
   }
 
   toggleRateShowWindow(show: Show, event: Event) {
-    this.isRateShowWindowOpened = !this.isRateShowWindowOpened;
+    this.booleans.isRateShowWindowOpened = !this.booleans.isRateShowWindowOpened;
 
-    if (this.isRateShowWindowOpened) {
+    if (this.booleans.isRateShowWindowOpened) {
       this.showToRate = show;
     } else {
       this.showToRate = this.setShowCredentialsToDefault();
@@ -114,25 +130,29 @@ export class ShowListComponent {
     const rateShowWindow = document.getElementById('rate-show-window');
 
     if (rateShowWindow) {
-      const posOfClickedElem = (event.currentTarget as HTMLElement).getBoundingClientRect();
+      this.positionRateShowWindow(event, rateShowWindow);
+    }
+  }
 
-      if (posOfClickedElem.top < window.innerHeight / 4) {
-        console.log('above middle')
-        this.renderer.setStyle(rateShowWindow, 'top', `${window.scrollY}px`);
-      } else {
-        console.log('below middle')
-        this.renderer.setStyle(rateShowWindow, 'top', `${posOfClickedElem.top + window.scrollY - rateShowWindow.offsetHeight}px`);
-      }
+  positionRateShowWindow(event: Event, rateShowWindow: HTMLElement) {
+    const posOfClickedElem = (event.currentTarget as HTMLElement).getBoundingClientRect();
 
-      if (posOfClickedElem.left < window.innerWidth / 2) {
-        console.log('left of middle')
-        this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
-        this.renderer.setStyle(rateShowWindow, 'transform', `translate(120px, 0)`);
-      } else {
-        console.log('right of middle')
-        this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
-        this.renderer.setStyle(rateShowWindow, 'transform', `translate(${-rateShowWindow.offsetWidth - 80}px, 0)`);
-      }
+    if (posOfClickedElem.top < window.innerHeight / 4) {
+      console.log('above middle')
+      this.renderer.setStyle(rateShowWindow, 'top', `${window.scrollY}px`);
+    } else {
+      console.log('below middle')
+      this.renderer.setStyle(rateShowWindow, 'top', `${posOfClickedElem.top + window.scrollY - rateShowWindow.offsetHeight}px`);
+    }
+
+    if (posOfClickedElem.left < window.innerWidth / 2) {
+      console.log('left of middle')
+      this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
+      this.renderer.setStyle(rateShowWindow, 'transform', `translate(120px, 0)`);
+    } else {
+      console.log('right of middle')
+      this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
+      this.renderer.setStyle(rateShowWindow, 'transform', `translate(${-rateShowWindow.offsetWidth - 80}px, 0)`);
     }
   }
 
@@ -140,6 +160,23 @@ export class ShowListComponent {
     const index = this.showList.indexOf(show);
     this.showList.splice(index, 1);
     this.saveShowsToStorage(this.showList);
+
+    this.removeRatedShowIdFromLocalStorage(show.id);
+  }
+
+  getRatedShowsIdsFromLocalStorage() {
+    const ratedShowsIdsJson = localStorage.getItem(this.storageNameForRatedShowsIds);
+    const ratedShowsIds = ratedShowsIdsJson ? JSON.parse(ratedShowsIdsJson) : [];
+    return ratedShowsIds;
+  }
+
+  removeRatedShowIdFromLocalStorage(showId: number) {
+    const ratedShowsIds = this.getRatedShowsIdsFromLocalStorage();
+    const index = ratedShowsIds.indexOf(showId);
+    if (index > -1) {
+      ratedShowsIds.splice(index, 1);
+      localStorage.setItem(this.storageNameForRatedShowsIds, JSON.stringify(ratedShowsIds));
+    }
   }
 
   // -------------------------------------------------

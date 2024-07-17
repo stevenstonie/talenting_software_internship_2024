@@ -14,7 +14,6 @@ export enum ShowType {
 	MOVIE = 'MOVIE',
 	DOCUMENTARY = 'DOCUMENTARY',
 	SHORT_FILM = 'SHORT FILM',
-	OTHER = 'OTHER',
 }
 
 export interface DialogWindow {
