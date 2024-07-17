@@ -36,6 +36,10 @@ export class TicTacToeComponent implements OnInit {
   }
 
   mouseHovering(index: number) {
+    if (this.playsVsComputer && this.currentPlayer !== this.selectedCharacter) {
+      return;
+    }
+
     if (this.winner === null) {
       this.hoveredSquare = index;
     }
@@ -75,11 +79,7 @@ export class TicTacToeComponent implements OnInit {
   }
 
   startNewGame() {
-    if (this.playsVsComputer && this.selectedCharacter === null) {
-
-    }
-
-    this.ticTacToeService.startNewGame(this.selectedCharacter);
+    this.ticTacToeService.startNewGame(this.selectedCharacter, this.playsVsComputer);
 
     this.hasGameStarted = true;
   }

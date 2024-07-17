@@ -13,8 +13,9 @@ export class TicTacToeService {
   nextPlayer: TicTacToeGameState['nextPlayer'] = 'X';
   gridSelections: TicTacToeGameState['gridSelections'] = Array(9).fill(null);
   winningSquares: TicTacToeGameState['winningSquares'] = [];
+  private playsVsComputer: boolean = false;
   private selectedCharacter: ('X' | 'O' | null) = null;
-  private combinations: number[][] = [
+  private winCombinations: number[][] = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -47,8 +48,9 @@ export class TicTacToeService {
     this.updateGameState();
   }
 
-  startNewGame(selectedCharacter: ('X' | 'O' | null)) {
+  startNewGame(selectedCharacter: ('X' | 'O' | null), playsVsComputer: boolean) {
     this.selectedCharacter = selectedCharacter;
+    this.playsVsComputer = playsVsComputer;
     this.nextPlayer = 'X';
     this.gridSelections = Array(9).fill(null);
     this.winner = null;
@@ -59,19 +61,35 @@ export class TicTacToeService {
 
   private updateGameState() {
     this.gameStateSubject.next({
-      winner: this.checkForWinner(),
+      winner: this.checkForWinner(false),
       gridSelections: this.gridSelections,
       nextPlayer: this.nextPlayer,
       winningSquares: this.winningSquares
     });
+
+    if (this.playsVsComputer && this.nextPlayer !== this.selectedCharacter) {
+      setTimeout(() => {
+        const computerCharacter = this.selectedCharacter === 'X' ? 'O' : 'X';
+        let bestMove = this.getBestMove();
+
+        if (bestMove === undefined) {
+          console.error('getBestMove() returned undefined.')
+          return;
+        }
+
+        this.makeMove(bestMove, computerCharacter);
+      }, 800);
+    }
   }
 
-  private checkForWinner(): TicTacToeGameState['winner'] {
-    for (let combination of this.combinations) {
+  private checkForWinner(isAnalizing: boolean): TicTacToeGameState['winner'] {
+    for (let combination of this.winCombinations) {
       const [a, b, c] = combination;
 
       if (this.gridSelections[a] && this.gridSelections[a] === this.gridSelections[b] && this.gridSelections[a] === this.gridSelections[c]) {
-        this.winSoundEffect.play();
+        if (!isAnalizing) {
+          this.winSoundEffect.play();
+        }
 
         this.winningSquares = combination;
         return this.gridSelections[a];
@@ -91,5 +109,99 @@ export class TicTacToeService {
       nextPlayer: 'X',
       winningSquares: []
     }
+  }
+
+  // minimax ----------------------------------------------------------------
+
+  private getBestMove(): number | undefined {
+    const computerCharacter = this.selectedCharacter === 'X' ? 'O' : 'X';
+
+    const bestMove = this.minimax(this.gridSelections, computerCharacter)?.index;
+
+    return bestMove;
+  }
+
+  private minimax(board: TicTacToeGameState['gridSelections'], computer: TicTacToeGameState['nextPlayer']): { index: number, score: number } | null {
+    const winner = this.checkForWinner(true);
+    const computerCharacter = this.selectedCharacter === 'X' ? 'O' : 'X';
+
+    if (winner === 'X') return { score: computerCharacter === 'X' ? 1 : -1, index: -1 };
+    if (winner === 'O') return { score: computerCharacter === 'O' ? 1 : -1, index: -1 };
+    if (winner === 'DRAW') return { score: 0, index: -1 };
+
+    const availableMoves = this.getAvailableMoves(board);
+
+    const movesAndScores = this.evaluateMoves(board, computer, availableMoves);
+
+    if (movesAndScores === null) {
+      console.error('evaluateMoves() returned null.');
+      return null;
+    }
+
+    return this.returnBestMove(movesAndScores, computer);
+  }
+
+  private returnBestMove(moves: { index: number, score: number }[], computer: TicTacToeGameState['nextPlayer']) {
+    let bestMove = null;
+
+    if (computer === 'O') {
+      let bestScore = -Infinity;
+      for (const move of moves) {
+        if (move.score > bestScore) {
+          bestScore = move.score;
+          bestMove = move;
+        }
+      }
+    } else {
+      let bestScore = Infinity;
+      for (const move of moves) {
+        if (move.score < bestScore) {
+          bestScore = move.score;
+          bestMove = move;
+        }
+      }
+    }
+
+    return bestMove;
+  }
+
+  private evaluateMoves(board: TicTacToeGameState['gridSelections'], computer: TicTacToeGameState['nextPlayer'], availableMoves: number[]): { index: number, score: number }[] | null {
+    let moves = [];
+
+    for (const availableMove of availableMoves) {
+      const move = {
+        index: availableMove,
+        score: 0
+      };
+
+      board[availableMove] = computer;
+
+      let score;
+      if (computer === 'O') {
+        score = this.minimax(board, 'X')?.score;
+        move.score = score ?? 0;
+      } else {
+        score = this.minimax(board, 'O')?.score;
+        move.score = score ?? 0;
+      }
+
+      board[availableMove] = null;
+
+      moves.push(move);
+    }
+
+    return moves;
+  }
+
+  private getAvailableMoves(board: TicTacToeGameState['gridSelections']): number[] {
+    const moves = [];
+
+    for (let i = 0; i < board.length; i++) {
+      if (!board[i]) {
+        moves.push(i);
+      }
+    }
+
+    return moves;
   }
 }
