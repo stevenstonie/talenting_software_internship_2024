@@ -9,17 +9,18 @@ export interface Show {
 }
 
 export enum ShowType {
-	ANIME = 'ANIME',
 	TV_SHOW = 'TV SHOW',
 	MOVIE = 'MOVIE',
 	DOCUMENTARY = 'DOCUMENTARY',
 	SHORT_FILM = 'SHORT FILM',
+	ANIME_SERIES = 'ANIME SERIES',
+	ANIME_MOVIE = 'ANIME MOVIE',
 }
 
 export interface DialogWindow {
 	title: string;
 	message: string;
-	isDialogWindowOpened: boolean
+	isOpened: boolean
 }
 
 export interface TicTacToeGameState {

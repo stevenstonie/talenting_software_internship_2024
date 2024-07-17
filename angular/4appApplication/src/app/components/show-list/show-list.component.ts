@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { Show, ShowType } from 'src/app/models/models';
+import { DialogWindow, Show, ShowType } from 'src/app/models/models';
 
 @Component({
   selector: 'app-show-list',
@@ -9,7 +9,6 @@ import { Show, ShowType } from 'src/app/models/models';
 export class ShowListComponent {
   storageNameForRatedShowsIds = 'ratedShowsIds';
   showList: Array<Show> = [];
-  siteToNavigateTo: string | null = null;
   showToAdd: Show = this.setShowCredentialsToDefault();
   showToRate: Show = this.setShowCredentialsToDefault();
   ratingChosen: number = 1;
@@ -17,25 +16,26 @@ export class ShowListComponent {
   booleans = {
     isAddShowWindowOpened: false,
     isRateShowWindowOpened: false,
-    isDialogWindowOpened: false,
-    isWarned: false
+    isWarnedOnRedirect: false,
+    isWarnedOnRemoving: false
   }
+  dialogWindow: DialogWindow = {
+    title: '',
+    message: '',
+    isOpened: false
+  };
 
   constructor(private renderer: Renderer2) {
     this.showList = this.getShowsFromStorage();
   }
 
   navigateTo(url: string | null) {
-    this.siteToNavigateTo = url != null && url !== '' ? url : this.siteToNavigateTo;
-    if (!this.booleans.isWarned) {
-      this.booleans.isWarned = true;
-      this.booleans.isDialogWindowOpened = true;
+    if (!this.booleans.isWarnedOnRedirect) {
+      this.booleans.isWarnedOnRedirect = true;
+      this.openDialogWindow('Careful!', 'this will redirect you to another site.');
+      return;
     }
-    else {
-      this.booleans.isDialogWindowOpened = false;
-      window.open(this.siteToNavigateTo!, '_blank');
-      this.siteToNavigateTo = null;
-    }
+    window.open(url!, '_blank');
   }
 
   toggleAddShowWindow: () => void = () => {
@@ -91,7 +91,7 @@ export class ShowListComponent {
 
   rateShow() {
     if (!this.ratingChosen && this.ratingChosen < 1 || this.ratingChosen > 10) {
-      alert('invalid rating..');
+      this.openDialogWindow('Invalid rating', 'please choose a rating between 1 and 10.');
       return;
     }
 
@@ -99,7 +99,7 @@ export class ShowListComponent {
 
     for (const ratedShowId of ratedShowsIds) {
       if (ratedShowId === this.showToRate.id) {
-        alert('you have already rated this show.');
+        this.openDialogWindow('Already rated', 'you have already rated this show.');
         return;
       }
     }
@@ -138,30 +138,32 @@ export class ShowListComponent {
     const posOfClickedElem = (event.currentTarget as HTMLElement).getBoundingClientRect();
 
     if (posOfClickedElem.top < window.innerHeight / 4) {
-      console.log('above middle')
       this.renderer.setStyle(rateShowWindow, 'top', `${window.scrollY}px`);
     } else {
-      console.log('below middle')
       this.renderer.setStyle(rateShowWindow, 'top', `${posOfClickedElem.top + window.scrollY - rateShowWindow.offsetHeight}px`);
     }
 
     if (posOfClickedElem.left < window.innerWidth / 2) {
-      console.log('left of middle')
       this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
-      this.renderer.setStyle(rateShowWindow, 'transform', `translate(120px, 0)`);
+      this.renderer.setStyle(rateShowWindow, 'transform', `translate(130px, 0)`);
     } else {
-      console.log('right of middle')
       this.renderer.setStyle(rateShowWindow, 'left', `${posOfClickedElem.left + window.scrollX}px`);
-      this.renderer.setStyle(rateShowWindow, 'transform', `translate(${-rateShowWindow.offsetWidth - 80}px, 0)`);
+      this.renderer.setStyle(rateShowWindow, 'transform', `translate(${-rateShowWindow.offsetWidth - 110}px, 0)`);
     }
   }
 
   removeShow(show: Show) {
+    if (!this.booleans.isWarnedOnRemoving) {
+      this.openDialogWindow('Careful!', 'this will remove the show from the list.');
+      this.booleans.isWarnedOnRemoving = true;
+      return;
+    }
+
     const index = this.showList.indexOf(show);
     this.showList.splice(index, 1);
     this.saveShowsToStorage(this.showList);
 
-    this.removeRatedShowIdFromLocalStorage(show.id);
+    this.removeIdOfRatedShowFromLocalStorage(show.id);
   }
 
   getRatedShowsIdsFromLocalStorage() {
@@ -170,13 +172,23 @@ export class ShowListComponent {
     return ratedShowsIds;
   }
 
-  removeRatedShowIdFromLocalStorage(showId: number) {
+  removeIdOfRatedShowFromLocalStorage(showId: number) {
     const ratedShowsIds = this.getRatedShowsIdsFromLocalStorage();
     const index = ratedShowsIds.indexOf(showId);
     if (index > -1) {
       ratedShowsIds.splice(index, 1);
       localStorage.setItem(this.storageNameForRatedShowsIds, JSON.stringify(ratedShowsIds));
     }
+  }
+
+  openDialogWindow(title: string, message: string) {
+    this.dialogWindow.title = title;
+    this.dialogWindow.message = message;
+    this.dialogWindow.isOpened = true;
+  }
+
+  closeDialogWindow() {
+    this.dialogWindow.isOpened = false;
   }
 
   // -------------------------------------------------

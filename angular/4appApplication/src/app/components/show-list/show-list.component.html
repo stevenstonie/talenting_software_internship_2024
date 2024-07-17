@@ -66,5 +66,5 @@
 	style="position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 0.9em; color: var(--primary-color);">
 	internet connection is necessary for displaying unloaded covers of shows and redirection to sites</p>
 
-<app-dialog-window *ngIf="booleans.isDialogWindowOpened" [title]="'!!!'"
-	[message]="'you will be redirected to another site'" (closeWindow)="navigateTo(null)"></app-dialog-window>
+<app-dialog-window *ngIf="dialogWindow.isOpened" [title]="dialogWindow.title"
+	[message]="dialogWindow.message" (closeWindow)="closeDialogWindow()"></app-dialog-window>
